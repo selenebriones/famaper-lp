@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS FAMAPER — Tailwind CSS v4
+   ============================================================ */
+@theme {
+  /* Colores de marca */
+  --color-brand-primary: #ECCF52;   /* Accent: amarillo industrial */
+  --color-brand-secondary: #EEEEEE; /* Fondos limpios de sección */
+  --color-brand-surface: #FFFFFF;   /* Fondo principal, blanco puro */
+  --color-brand-dark: #121212;      /* Negro carbón: tarjetas oscuras */
+  --color-brand-text: #000000;      /* Texto principal */
+  --color-brand-muted: #4A4A4A;     /* Texto secundario */
+
+  /* Tipografía */
+  --font-sans: "Poppins", system-ui, -apple-system, sans-serif;
+  --font-display: "Poppins", system-ui, sans-serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-sans);
+    color: var(--color-brand-muted);
+    background-color: var(--color-brand-surface);
+  }
+
+  body {
+    background-color: var(--color-brand-surface);
+    color: var(--color-brand-muted);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--color-brand-text);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+
+  /* Compensa el header fijo al navegar por anclas */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* ============================================================
+   UTILIDADES CORPORATIVAS
+   ============================================================ */
+
+/* Glassmorphism del header fijo */
+.glass-panel {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(18, 18, 18, 0.08);
+}
+
+.section-title {
+  font-size: clamp(1.875rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+}
+
+/* Slider de productos (Swiper) */
+.productos-swiper .swiper-slide {
+  height: auto;
+  display: flex;
+}
+
+.productos-swiper .swiper-pagination-bullet {
+  background-color: #4a4a4a;
+  opacity: 0.3;
+}
+
+.productos-swiper .swiper-pagination-bullet-active {
+  background-color: var(--color-brand-primary);
+  opacity: 1;
+  width: 24px;
+  border-radius: 9999px;
+}
+
+/* Sugerencia de compositing para los elementos animados con GSAP */
+.bento-item,
+.advantage-card,
+.step-item {
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Sin video de fondo: se queda el poster estático */
+  #hero-video {
+    display: none;
+  }
+}

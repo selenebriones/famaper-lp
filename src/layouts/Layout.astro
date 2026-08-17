@@ -1,0 +1,272 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+	ogImage?: string;
+}
+
+const {
+	title = 'Famaper | Fabricación, diseño e instalación de racks industriales',
+	description = 'Famaper diseña, fabrica e instala racks industriales y sistemas de almacenamiento a la medida: selectivo, Drive-In, cantilever, mezzanines y dinámicos. Cobertura nacional.',
+	ogImage = '/images/og-famaper.jpg',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.famaper.com').href;
+
+const navLinks = [
+	{ label: 'Servicios', href: '/#servicios' },
+	{ label: 'Productos', href: '/#productos' },
+	{ label: 'Metodología', href: '/#metodologia' },
+	{ label: 'Calidad', href: '/#calidad' },
+];
+
+const oficinas = [
+	{ ciudad: 'Saltillo', tel: '844 9800839' },
+	{ ciudad: 'León', tel: '477 9753449' },
+	{ ciudad: 'Puebla', tel: '222 9671422' },
+	{ ciudad: 'Ciudad Juárez', tel: '656 9470251' },
+	{ ciudad: 'Hermosillo', tel: '662 9801220' },
+	{ ciudad: 'Culiacán', tel: '667 9800676' },
+];
+
+const year = new Date().getFullYear();
+---
+
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO -->
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#ECCF52" />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/favicon.ico" />
+
+		<!-- Open Graph / Twitter -->
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="es_MX" />
+		<meta property="og:site_name" content="Famaper" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:image" content={ogImage} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
+		<!-- GOOGLE FONTS -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- PHOSPHOR ICONS -->
+		<script is:inline src="https://unpkg.com/@phosphor-icons/web"></script>
+
+		<!-- SWIPER JS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+		<!-- GSAP + SCROLLTRIGGER -->
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+		<script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+	</head>
+
+	<body class="antialiased min-h-screen flex flex-col bg-white font-sans">
+		<!-- ============================================================
+			 HEADER FIJO — GLASSMORPHISM
+		============================================================ -->
+		<header class="fixed top-0 left-0 w-full z-50 h-20 backdrop-blur-md bg-white/80 border-b border-black/5">
+			<div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between gap-6">
+				<!-- Logotipo -->
+				<a href="/" class="flex items-center gap-3 group shrink-0" aria-label="Famaper — Inicio">
+					<img
+						src="/images/logo-famaper.webp"
+						alt="FMP Racks"
+						class="h-9 md:h-10 w-auto object-contain group-hover:scale-105 transition-transform"
+						onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+					/>
+					<!-- Fallback textual mientras no exista el archivo del logo -->
+					<span class="hidden items-center gap-2">
+						<span class="w-9 h-9 rounded-lg bg-brand-primary flex items-center justify-center text-black text-lg">
+							<i class="ph-bold ph-stack"></i>
+						</span>
+						<span class="text-lg font-extrabold tracking-tight text-black">FMP Racks</span>
+					</span>
+				</a>
+
+				<!-- Navegación -->
+				<nav class="hidden lg:flex items-center gap-8 text-sm font-semibold text-black" aria-label="Navegación principal">
+					{navLinks.map((link) => (
+						<a href={link.href} class="hover:text-brand-muted transition-colors">{link.label}</a>
+					))}
+				</nav>
+
+				<!-- CTA -->
+				<div class="flex items-center gap-2 sm:gap-3 shrink-0">
+					<a
+						href="/#contacto"
+						class="bg-brand-primary text-black font-bold text-[11px] sm:text-xs md:text-sm px-3.5 sm:px-5 md:px-7 py-3 rounded-lg shadow-md hover:brightness-105 hover:shadow-lg transition-all whitespace-nowrap"
+					>
+						<span class="sm:hidden">Cotizar</span>
+						<span class="hidden sm:inline">Cotizar Proyecto</span>
+					</a>
+
+					<!-- Toggle móvil -->
+					<button
+						type="button"
+						id="menu-toggle"
+						class="lg:hidden w-10 h-10 rounded-lg border border-gray-200 flex items-center justify-center text-black text-xl"
+						aria-label="Abrir menú"
+						aria-expanded="false"
+						aria-controls="mobile-nav"
+					>
+						<i class="ph-bold ph-list"></i>
+					</button>
+				</div>
+			</div>
+
+			<!-- Navegación móvil -->
+			<nav
+				id="mobile-nav"
+				class="lg:hidden hidden bg-white/95 backdrop-blur-md border-b border-black/5 px-6 py-4"
+				aria-label="Navegación móvil"
+			>
+				<ul class="flex flex-col divide-y divide-gray-100 text-sm font-semibold text-black">
+					{navLinks.map((link) => (
+						<li><a href={link.href} class="block py-3 hover:text-brand-muted transition-colors">{link.label}</a></li>
+					))}
+				</ul>
+			</nav>
+		</header>
+
+		<!-- ============================================================
+			 CONTENIDO
+		============================================================ -->
+		<main class="flex-grow pt-20">
+			<slot />
+		</main>
+
+		<!-- ============================================================
+			 FOOTER CORPORATIVO
+		============================================================ -->
+		<footer class="bg-brand-secondary text-black">
+			<div class="max-w-7xl mx-auto px-6 pt-16 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+				<!-- Columna 1: Marca y confianza -->
+				<div class="lg:col-span-2 flex flex-col gap-5">
+					<div class="flex items-center gap-3">
+						<img
+							src="/images/logo-famaper.webp"
+							alt="FMP Racks"
+							class="h-10 w-auto object-contain"
+							onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+						/>
+						<span class="hidden items-center gap-2">
+							<span class="w-10 h-10 rounded-lg bg-brand-primary flex items-center justify-center text-black text-xl">
+								<i class="ph-bold ph-stack"></i>
+							</span>
+							<span class="text-xl font-extrabold tracking-tight text-black">FMP Racks</span>
+						</span>
+					</div>
+					<p class="text-sm md:text-base text-brand-muted leading-relaxed max-w-md">
+						Soluciones integrales de almacenamiento hechas a la medida para optimizar tu espacio.
+					</p>
+				</div>
+
+				<!-- Columna 2: Contacto directo -->
+				<div>
+					<h2 class="text-sm font-bold uppercase tracking-[0.15em] text-black mb-5">Contacto directo</h2>
+					<ul class="space-y-4 text-sm">
+						<li class="flex items-start gap-3">
+							<i class="ph-bold ph-envelope-simple text-lg text-black/70 mt-0.5"></i>
+							<a href="mailto:ventas@famaper.com" class="text-brand-muted hover:text-black transition-colors">
+								ventas@famaper.com
+							</a>
+						</li>
+						<li class="flex items-start gap-3">
+							<i class="ph-bold ph-whatsapp-logo text-lg text-black/70 mt-0.5"></i>
+							<a
+								href="https://wa.me/528130442945"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-brand-muted hover:text-black transition-colors"
+							>
+								81 3044 2945
+							</a>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Columna 3: Cobertura nacional -->
+				<div>
+					<h2 class="text-sm font-bold uppercase tracking-[0.15em] text-black mb-5">Cobertura nacional</h2>
+					<ul class="space-y-3 text-sm">
+						{oficinas.map((oficina) => (
+							<li class="flex items-center justify-between gap-4">
+								<span class="font-semibold text-black">{oficina.ciudad}</span>
+								<a
+									href={`tel:+52${oficina.tel.replace(/\s/g, '')}`}
+									class="text-brand-muted hover:text-black transition-colors tabular-nums"
+								>
+									{oficina.tel}
+								</a>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+
+			<!-- Bottom bar -->
+			<div class="border-t border-black/10">
+				<div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-brand-muted">
+					<p>&copy; {year} Famaper. Todos los derechos reservados.</p>
+					<nav class="flex items-center gap-6" aria-label="Enlaces legales">
+						<a href="/politicas-de-privacidad" class="hover:text-black transition-colors">Políticas de Privacidad</a>
+						<a href="/terminos-y-condiciones" class="hover:text-black transition-colors">Términos y Condiciones</a>
+					</nav>
+				</div>
+			</div>
+		</footer>
+
+		<!-- ============================================================
+			 INICIALIZACIÓN GSAP + MENÚ MÓVIL
+		============================================================ -->
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', () => {
+				if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+					gsap.registerPlugin(ScrollTrigger);
+				}
+
+				const toggle = document.getElementById('menu-toggle');
+				const mobileNav = document.getElementById('mobile-nav');
+
+				if (toggle && mobileNav) {
+					toggle.addEventListener('click', () => {
+						const isOpen = mobileNav.classList.toggle('hidden') === false;
+						toggle.setAttribute('aria-expanded', String(isOpen));
+						toggle.innerHTML = isOpen ? '<i class="ph-bold ph-x"></i>' : '<i class="ph-bold ph-list"></i>';
+					});
+
+					mobileNav.querySelectorAll('a').forEach((link) => {
+						link.addEventListener('click', () => {
+							mobileNav.classList.add('hidden');
+							toggle.setAttribute('aria-expanded', 'false');
+							toggle.innerHTML = '<i class="ph-bold ph-list"></i>';
+						});
+					});
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,837 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const servicios = [
+	{
+		icon: 'ph-chats-circle',
+		title: 'Consultoría',
+		description:
+			'Optimizamos tu espacio de almacenaje y el diseño de tu Centro de Distribución (CEDIS). Analizamos el flujo de trabajo para seleccionar los racks de almacenamiento ideales para tu empresa.',
+	},
+	{
+		icon: 'ph-compass-tool',
+		title: 'Diseño',
+		description:
+			'Desarrollamos proyectos a la medida evaluando la capacidad de carga y requerimientos técnicos. Incluye la ingeniería para racks selectivos u otros sistemas con cálculo estructural y sísmico.',
+	},
+	{
+		icon: 'ph-factory',
+		title: 'Fabricación',
+		description:
+			'Como fábrica de racks, producimos tus estructuras con acero de alta resistencia bajo la norma ISO 9001. Nos especializamos en la venta de racks personalizados según las especificaciones de tu bodega.',
+	},
+	{
+		icon: 'ph-wrench',
+		title: 'Instalación',
+		description:
+			'Contamos con personal capacitado para la instalación y montaje de racks para almacenamiento industrial bajo la norma NOM-STPS-006. Realizamos también desmontaje y reubicación de equipos existentes.',
+	},
+];
+
+const productos = [
+	{
+		icon: 'ph-rows',
+		title: 'Menorack',
+		image: '/images/img-menorack-01.png',
+		description:
+			'Rack industrial ligero diseñado para la manipulación manual de mercancía con capacidad de hasta 1800 kg. Cuenta con entrepaño de madera o panel metálico, perfecto para operaciones de picking.',
+		span: 'md:col-span-2',
+		featured: true,
+	},
+	{
+		icon: 'ph-stack',
+		title: 'Selectivo',
+		image: '/images/img-selectivo-02.png',
+		description:
+			'El sistema más versátil para la venta de racks. Ideal para el almacenamiento de productos en tarimas con acceso directo a cada estiba, adaptándose a cualquier tipo de carga, volumen y peso.',
+		span: 'md:col-span-2',
+		featured: true,
+	},
+	{
+		icon: 'ph-arrows-in-line-horizontal',
+		title: 'Drive-In',
+		image: '/images/img-drivein-06.png',
+		description:
+			'Maximiza la utilización del volumen disponible. Este sistema de racks de almacenamiento es perfecto para guardar productos homogéneos de alta densidad y gran cantidad de tarimas por referencia.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-arrow-line-left',
+		title: 'Push-Back',
+		image: '/images/img-pushback-02.png',
+		description:
+			'Almacenaje por acumulación que permite gestionar de 2 a 6 tarimas en profundidad por nivel. Excelente solución de racks para almacenamiento industrial en cámaras de refrigeración y congelación.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-align-left',
+		title: 'Cantilever',
+		image: '/images/img-cantilever-03.png',
+		description:
+			'Diseñado para barras, tubos o perfiles de gran longitud (+3 metros). Estructura robusta para la estibación segura de cargas largas y volumétricas.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-steps',
+		title: 'Entrepiso',
+		image: '/images/img-entrepiso-06.jpeg',
+		description:
+			'Niveles de pisos multiplicados y sostenidos por la misma estructura de racks y anaqueles, aprovechando la altura total del almacén para carga manual.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-buildings',
+		title: 'Mezzanine',
+		image: '/images/img-mezzanine-03.png',
+		description:
+			'Duplica o triplica la superficie útil de tu nave. Ideal para almacenamiento de cargas de bajo peso, áreas de trabajo u oficinas operativas.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-arrows-clockwise',
+		title: 'Dinámico',
+		image: '/images/img-dinamico-01.png',
+		description:
+			'Diseñado para alta densidad de rotación (FIFO). Utiliza rodillos o ruedas con controladores de velocidad para desplazar hasta 40 tarimas de fondo con total seguridad.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-package',
+		title: 'Carton Flow',
+		image: '/images/img-cartonflow-02.png',
+		description:
+			'Aumenta la velocidad del surtido bajo el principio de "Primeras Entradas, Primeras Salidas". La solución clave para alta densidad de cajas y productos ligeros.',
+		span: '',
+		featured: false,
+	},
+	{
+		icon: 'ph-building-office',
+		title: 'Autoportante',
+		image: '/images/img-autoportante-01.png',
+		description:
+			'Gran obra de ingeniería donde los propios racks industriales forman parte de la estructura resistente del edificio o nave industrial.',
+		span: '',
+		featured: false,
+	},
+];
+
+const metodologia = [
+	{
+		number: '01',
+		icon: 'ph-clipboard-text',
+		title: 'Asesoría Especializada',
+		description:
+			'Nuestro equipo analiza las dimensiones de tu espacio para seleccionar el rack de almacenaje ideal.',
+	},
+	{
+		number: '02',
+		icon: 'ph-cube-transparent',
+		title: 'Diseño e Ingeniería',
+		description:
+			'Diseñamos el plano considerando capacidad de carga, seguridad sísmica y optimización del flujo logístico.',
+	},
+	{
+		number: '03',
+		icon: 'ph-gear-six',
+		title: 'Fabricación e Instalación',
+		description:
+			'Como fábrica de racks, elaboramos los componentes bajo estrictos estándares y nos encargamos de su armado final.',
+	},
+];
+
+const oficinas = [
+	{
+		nombre: 'Planta',
+		direccion: 'Roberto Michel #136 A, El Zapote del Valle, Tlajomulco de Zuñiga, Jalisco. C.P: 45672',
+		tel: '33 4757 5181',
+		telLink: '523347575181',
+		email: 'ventas@famaper.com',
+	},
+	{
+		nombre: 'Oficina Monterrey',
+		direccion: 'Julián Treviño Elizondo #504, Fracc Industrial San Andres, Apodaca, Nuevo León. CP: 66640',
+		tel: '81 4842 8807',
+		telLink: '528148428807',
+		email: 'ventas@famaper.com',
+	},
+	{
+		nombre: 'Sucursal Centro',
+		direccion:
+			'Camino Real De Carretas 229 INT 2-12 Momentum Iii, Lote Condominio 2, Milenio III, 76060 Santiago de Querétaro, Qro.',
+		tel: '44 2980 3075',
+		telLink: '524429803075',
+		email: 'ventas@famaper.com',
+	},
+	{
+		nombre: 'Oficinas Tijuana',
+		direccion: 'Mérida 3150, Neidhart, 22044, Tijuana, Baja California.',
+		tel: '664 9577 122',
+		telLink: '526649577122',
+		email: 'ventas@famaper.com',
+	},
+];
+
+const otrasOficinas = [
+	{ ciudad: 'Saltillo', tel: '844 9800839', telLink: '528449800839' },
+	{ ciudad: 'León', tel: '477 9753449', telLink: '524779753449' },
+	{ ciudad: 'Puebla', tel: '222 9671422', telLink: '522229671422' },
+	{ ciudad: 'Ciudad Juárez', tel: '656 9470251', telLink: '526569470251' },
+	{ ciudad: 'Hermosillo', tel: '662 9801220', telLink: '526629801220' },
+	{ ciudad: 'Culiacán', tel: '667 9800676', telLink: '526679800676' },
+];
+
+const productosSelect = productos.map((p) => p.title);
+
+// Menorack y Selectivo se quedan como tarjetas destacadas del Bento;
+// el resto se presenta en un slider de 3 por vista.
+const destacados = productos.filter((p) => p.featured);
+const enSlider = productos.filter((p) => !p.featured);
+---
+
+<Layout>
+	<!-- ============================================================
+		 A. HERO
+	============================================================ -->
+	<section class="relative min-h-[62vh] lg:min-h-[66vh] flex items-center overflow-hidden bg-black">
+		<!-- Video de fondo (YouTube, sin audio ni controles) + capa oscura -->
+		<div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+			<!-- Poster de respaldo mientras carga el video / si el iframe está bloqueado -->
+			<img
+				src="/images/hero-racks-industriales.jpg"
+				alt=""
+				class="absolute inset-0 w-full h-full object-cover"
+				loading="eager"
+				decoding="async"
+			/>
+			<iframe
+				id="hero-video"
+				class="absolute top-1/2 left-1/2 w-[177.78vh] min-w-full h-[56.25vw] min-h-full border-0 -translate-x-1/2 -translate-y-[58%] scale-[1.3]"
+				src="https://www.youtube-nocookie.com/embed/-L2rRKIw1Ko?autoplay=1&mute=1&loop=1&playlist=-L2rRKIw1Ko&controls=0&showinfo=0&modestbranding=1&rel=0&disablekb=1&fs=0&iv_load_policy=3&cc_load_policy=0&cc_lang_pref=none&hl=es&playsinline=1&start=35"
+				title="Fabricación e instalación de racks industriales Famaper"
+				allow="autoplay; encrypted-media"
+				referrerpolicy="strict-origin-when-cross-origin"
+				tabindex="-1"
+				loading="eager"
+			></iframe>
+		</div>
+
+		<!-- Capa oscura semitransparente -->
+		<div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
+		<div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent pointer-events-none"></div>
+
+		<div class="relative max-w-7xl mx-auto px-6 py-14 md:py-16 w-full">
+			<div class="hero-content max-w-4xl">
+				<span class="inline-flex items-center gap-2 bg-brand-primary text-black text-xs md:text-sm font-bold uppercase tracking-wider px-4 py-2 rounded-full mb-5">
+					<i class="ph-fill ph-factory text-base"></i>
+					Fábrica de racks con más de 20 años de experiencia
+				</span>
+
+				<h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-[1.08] uppercase mb-5">
+					Fabricación, diseño e instalación de{' '}
+					<span class="text-brand-primary">racks industriales</span>
+				</h1>
+
+				<p class="text-base md:text-lg text-gray-200 leading-relaxed max-w-2xl mb-8">
+					Soluciones integrales de almacenamiento hechas a la medida para optimizar tu espacio,
+					mejorar la logística y garantizar la máxima seguridad operativa.
+				</p>
+
+				<div class="flex flex-col sm:flex-row gap-4">
+					<a
+						href="#contacto"
+						class="bg-brand-primary text-black font-bold uppercase tracking-wide px-10 py-4 rounded-lg shadow-lg hover:brightness-105 transition-all text-center"
+					>
+						Cotizar Proyecto
+					</a>
+					<a
+						href="#productos"
+						class="border border-white/40 text-white font-semibold px-8 py-4 rounded-lg hover:bg-white/10 transition-all text-center"
+					>
+						Ver Productos
+					</a>
+				</div>
+
+				<ul class="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3 text-sm text-gray-300">
+					<li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-primary text-lg"></i> Norma ISO 9001</li>
+					<li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-primary text-lg"></i> Montaje bajo NOM-STPS-006</li>
+					<li class="flex items-center gap-2"><i class="ph-fill ph-check-circle text-brand-primary text-lg"></i> Cálculo estructural y sísmico</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 B. SERVICIOS
+	============================================================ -->
+	<section id="servicios" class="py-20 md:py-28 bg-white">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center max-w-3xl mx-auto mb-14">
+				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-muted">Servicios</span>
+				<h2 class="section-title font-extrabold text-black mt-4">
+					Un solo proveedor para todo el ciclo de tu proyecto
+				</h2>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+				{servicios.map((servicio) => (
+					<article class="anim-card bg-white border border-gray-200 rounded-2xl p-7 transition-all hover:shadow-xl hover:-translate-y-1">
+						<span class="w-14 h-14 rounded-xl bg-brand-primary flex items-center justify-center text-black text-2xl mb-6">
+							<i class={`ph-bold ${servicio.icon}`}></i>
+						</span>
+						<h3 class="text-xl font-bold text-black mb-3">{servicio.title}</h3>
+						<p class="text-sm text-brand-muted leading-relaxed">{servicio.description}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 C. BANDA E-E-A-T (+20 AÑOS)
+	============================================================ -->
+	<section class="relative bg-brand-secondary py-20 md:py-24 overflow-hidden">
+		<!-- Imagen de fondo con degradado de gris a imagen (izquierda → derecha) -->
+		<img
+			src="/images/20anios.webp"
+			alt=""
+			aria-hidden="true"
+			class="absolute inset-0 w-full h-full object-cover"
+			loading="eager"
+			fetchpriority="low"
+			decoding="async"
+		/>
+		<div
+			class="absolute inset-0 bg-gradient-to-r from-brand-secondary from-25% via-brand-secondary/95 to-brand-secondary/40"
+		></div>
+
+		<div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center lg:items-end">
+			<div>
+				<h2 class="text-3xl md:text-4xl xl:text-5xl font-extrabold text-black uppercase leading-tight mb-6">
+					<span class="text-brand-primary">+20 Años</span> de experiencia en sistemas de almacenaje
+				</h2>
+				<p class="text-base md:text-lg text-brand-muted leading-relaxed">
+					En Famaper combinamos más de dos décadas de trayectoria con tecnología de punta. Nuestro
+					equipo de ingenieros es especialista en el desarrollo y venta de racks para almacenamiento
+					industrial, respaldado por cálculos estructurales y sísmicos que garantizan la máxima
+					seguridad en cada proyecto.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+				<div class="anim-card bg-white rounded-2xl p-6 text-center">
+					<i class="ph-bold ph-medal text-3xl text-brand-primary"></i>
+					<p class="text-2xl font-extrabold text-black mt-4">+20 Años</p>
+					<p class="text-xs text-brand-muted mt-2 leading-snug">De trayectoria en almacenaje industrial</p>
+				</div>
+				<div class="anim-card bg-white rounded-2xl p-6 text-center">
+					<i class="ph-bold ph-certificate text-3xl text-brand-primary"></i>
+					<p class="text-2xl font-extrabold text-black mt-4">ISO 9001</p>
+					<p class="text-xs text-brand-muted mt-2 leading-snug">Fabricación con acero de alta resistencia</p>
+				</div>
+				<div class="anim-card bg-white rounded-2xl p-6 text-center">
+					<i class="ph-bold ph-shield-check text-3xl text-brand-primary"></i>
+					<p class="text-2xl font-extrabold text-black mt-4">NOM-STPS-006</p>
+					<p class="text-xs text-brand-muted mt-2 leading-snug">Instalación y montaje normado</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 D. PRODUCTOS (BENTO GRID)
+	============================================================ -->
+	<section id="productos" class="py-20 md:py-28 bg-white">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center max-w-3xl mx-auto mb-14">
+				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-muted">Productos</span>
+				<h2 class="section-title font-extrabold text-black mt-4 mb-5">
+					Sistemas de almacenamiento para cada tipo de carga y rotación
+				</h2>
+				<p class="text-brand-muted text-base md:text-lg leading-relaxed">
+					Diez soluciones fabricadas a la medida de tu operación, desde picking manual hasta racks
+					autoportantes que forman parte de la estructura de la nave.
+				</p>
+			</div>
+
+			<!-- Destacados: Menorack y Selectivo -->
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+				{destacados.map((producto) => (
+					<article class="anim-card group rounded-2xl overflow-hidden flex flex-col bg-brand-dark text-white transition-all hover:-translate-y-1 hover:shadow-xl">
+						<div class="relative overflow-hidden aspect-16/9 bg-brand-dark">
+							<img
+								src={producto.image}
+								alt={`Rack ${producto.title} fabricado e instalado por Famaper`}
+								class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+								loading="lazy"
+								decoding="async"
+							/>
+							<span class="absolute bottom-4 left-4 w-11 h-11 rounded-xl bg-brand-primary flex items-center justify-center text-black text-xl shadow-lg">
+								<i class={`ph-bold ${producto.icon}`}></i>
+							</span>
+						</div>
+
+						<div class="p-7 flex flex-col grow">
+							<h3 class="text-2xl font-bold text-white mb-3">{producto.title}</h3>
+							<p class="text-sm text-gray-300 leading-relaxed grow">{producto.description}</p>
+							<a
+								href="#contacto"
+								class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-primary transition-colors"
+							>
+								Cotizar este sistema
+								<i class="ph-bold ph-arrow-right transition-transform group-hover:translate-x-1"></i>
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+
+			<!-- Slider: resto del catálogo, 3 por vista -->
+			<div class="anim-card relative">
+				<div class="swiper productos-swiper !pb-14">
+					<div class="swiper-wrapper">
+						{enSlider.map((producto) => (
+							<div class="swiper-slide h-auto">
+								<article class="group h-full rounded-2xl overflow-hidden flex flex-col bg-brand-secondary text-black border border-transparent transition-all hover:border-brand-primary hover:shadow-xl">
+									<div class="relative overflow-hidden aspect-4/3 bg-brand-dark">
+										<img
+											src={producto.image}
+											alt={`Rack ${producto.title} fabricado e instalado por Famaper`}
+											class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+											loading="lazy"
+											decoding="async"
+										/>
+										<span class="absolute bottom-4 left-4 w-11 h-11 rounded-xl bg-brand-primary flex items-center justify-center text-black text-xl shadow-lg">
+											<i class={`ph-bold ${producto.icon}`}></i>
+										</span>
+									</div>
+
+									<div class="p-7 flex flex-col grow">
+										<h3 class="text-xl font-bold text-black mb-3">{producto.title}</h3>
+										<p class="text-sm text-brand-muted leading-relaxed grow">{producto.description}</p>
+										<a
+											href="#contacto"
+											class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-black hover:text-brand-muted transition-colors"
+										>
+											Cotizar este sistema
+											<i class="ph-bold ph-arrow-right transition-transform group-hover:translate-x-1"></i>
+										</a>
+									</div>
+								</article>
+							</div>
+						))}
+					</div>
+
+					<div class="swiper-pagination productos-pagination"></div>
+				</div>
+
+				<!-- Controles laterales -->
+				<button
+					type="button"
+					class="productos-prev absolute z-10 top-28 -translate-y-1/2 sm:top-1/2 sm:-translate-y-[calc(50%+1.75rem)] left-1 sm:left-2 xl:-left-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-gray-300 shadow-lg flex items-center justify-center text-black text-lg sm:text-xl hover:bg-brand-primary hover:border-brand-primary transition-all"
+					aria-label="Productos anteriores"
+				>
+					<i class="ph-bold ph-arrow-left"></i>
+				</button>
+				<button
+					type="button"
+					class="productos-next absolute z-10 top-28 -translate-y-1/2 sm:top-1/2 sm:-translate-y-[calc(50%+1.75rem)] right-1 sm:right-2 xl:-right-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-gray-300 shadow-lg flex items-center justify-center text-black text-lg sm:text-xl hover:bg-brand-primary hover:border-brand-primary transition-all"
+					aria-label="Productos siguientes"
+				>
+					<i class="ph-bold ph-arrow-right"></i>
+				</button>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 E. METODOLOGÍA PARA PROYECTOS
+	============================================================ -->
+	<section id="metodologia" class="py-20 md:py-28 bg-brand-secondary">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center max-w-3xl mx-auto mb-14">
+				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-muted">Metodología</span>
+				<h2 class="section-title font-extrabold text-black mt-4">Metodología para proyectos</h2>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				{metodologia.map((paso) => (
+					<article class="anim-card bg-white rounded-2xl p-8 transition-all hover:shadow-xl hover:-translate-y-1">
+						<div class="flex items-center justify-between mb-6">
+							<span class="w-14 h-14 rounded-2xl bg-brand-dark text-brand-primary flex items-center justify-center text-xl font-extrabold">
+								{paso.number}
+							</span>
+							<i class={`ph-bold ${paso.icon} text-3xl text-brand-primary`}></i>
+						</div>
+						<h3 class="text-xl font-bold text-black mb-3">{paso.title}</h3>
+						<p class="text-sm text-brand-muted leading-relaxed">{paso.description}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 F. COBERTURA NACIONAL / OFICINAS
+	============================================================ -->
+	<section id="oficinas" class="relative py-20 md:py-28 bg-brand-dark overflow-hidden">
+		<!-- Imagen de fondo a la vista, sin capa oscura -->
+		<img
+			src="/images/famaper-web-productos-selectivos-banner.webp"
+			alt=""
+			aria-hidden="true"
+			class="absolute inset-0 w-full h-full object-cover"
+			loading="lazy"
+			decoding="async"
+		/>
+
+		<div class="relative max-w-7xl mx-auto px-6">
+			<div class="text-center max-w-3xl mx-auto mb-14">
+				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-primary">Cobertura nacional</span>
+				<h2 class="section-title font-extrabold text-white mt-4">
+					Soluciones integrales en racks industriales a nivel nacional
+				</h2>
+			</div>
+
+			<!-- Sedes principales -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				{oficinas.map((oficina) => (
+					<article class="anim-card rounded-2xl border border-white/10 bg-brand-dark/80 backdrop-blur-sm p-7 flex flex-col text-center transition-all hover:border-brand-primary hover:-translate-y-1">
+						<i class="ph-fill ph-map-pin text-4xl text-brand-primary mx-auto"></i>
+
+						<h3 class="text-lg font-extrabold text-brand-primary uppercase tracking-wide mt-5">
+							{oficina.nombre}
+						</h3>
+
+						<p class="text-sm text-gray-200 leading-relaxed mt-4 grow">{oficina.direccion}</p>
+
+						<div class="mt-6 pt-6 border-t border-white/10">
+							<i class="ph-fill ph-phone text-2xl text-brand-primary"></i>
+							<p class="text-xs text-gray-400 mt-2">Tel:</p>
+							<a
+								href={`tel:+${oficina.telLink}`}
+								class="text-sm font-semibold text-white hover:text-brand-primary transition tabular-nums"
+							>
+								{oficina.tel}
+							</a>
+						</div>
+
+						<div class="mt-6 pt-6 border-t border-white/10">
+							<i class="ph-fill ph-envelope-simple text-2xl text-brand-primary"></i>
+							<p class="text-xs text-gray-400 mt-2">Correo:</p>
+							<a
+								href={`mailto:${oficina.email}`}
+								class="text-sm font-semibold text-white hover:text-brand-primary transition break-all"
+							>
+								{oficina.email}
+							</a>
+						</div>
+					</article>
+				))}
+			</div>
+
+			<!-- Otras oficinas (solo teléfono) -->
+			<div class="anim-card mt-12 rounded-2xl border border-white/10 bg-brand-dark/80 backdrop-blur-sm p-7 md:p-8">
+				<h3 class="text-sm font-bold uppercase tracking-[0.15em] text-brand-primary mb-6">
+					Otras oficinas
+				</h3>
+				<ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-4">
+					{otrasOficinas.map((oficina) => (
+						<li>
+							<a
+								href={`tel:+${oficina.telLink}`}
+								class="group/of flex items-center justify-between gap-4 -mx-2 px-2 pb-3 rounded-md border-b border-white/10 transition-all duration-300 hover:bg-brand-primary/10 hover:border-brand-primary hover:px-3"
+							>
+								<span class="text-sm font-semibold text-white transition-colors duration-300 group-hover/of:text-brand-primary">
+									{oficina.ciudad}
+								</span>
+								<span class="flex items-center text-sm text-gray-300 tabular-nums whitespace-nowrap transition-colors duration-300 group-hover/of:text-brand-primary">
+									<i class="ph-bold ph-phone mr-1.5 transition-transform duration-300 group-hover/of:scale-125"></i>
+									{oficina.tel}
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 G. CONTACTO & FORMULARIO
+	============================================================ -->
+	<section id="contacto" class="bg-brand-primary py-20 md:py-28">
+		<div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-14 items-start">
+			<!-- Izquierda: marca, contacto y política de calidad -->
+			<div>
+				<h2 class="text-3xl md:text-4xl xl:text-5xl font-extrabold text-black uppercase leading-tight mb-6">
+					Soluciones integrales en racks industriales a nivel nacional
+				</h2>
+				<p class="text-base md:text-lg text-black/80 leading-relaxed mb-10">
+					Si deseas más información de nuestros productos o servicios completa nuestro formulario y un
+					asesor se contactará contigo a la brevedad.
+				</p>
+
+				<div class="flex items-center gap-3 mb-8">
+					<img
+						src="/images/logo-famaper.webp"
+						alt="FMP Racks"
+						class="h-10 w-auto object-contain"
+						onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+					/>
+					<span class="hidden items-center gap-2">
+						<span class="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-brand-primary text-xl">
+							<i class="ph-bold ph-stack"></i>
+						</span>
+						<span class="text-xl font-extrabold tracking-tight text-black">FMP Racks</span>
+					</span>
+				</div>
+
+				<ul class="space-y-4 mb-10">
+					<li class="flex items-center gap-3">
+						<span class="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-brand-primary text-lg">
+							<i class="ph-bold ph-envelope-simple"></i>
+						</span>
+						<a href="mailto:ventas@famaper.com" class="text-black font-semibold hover:underline">ventas@famaper.com</a>
+					</li>
+					<li class="flex items-center gap-3">
+						<span class="w-10 h-10 rounded-lg bg-black flex items-center justify-center text-brand-primary text-lg">
+							<i class="ph-bold ph-whatsapp-logo"></i>
+						</span>
+						<a
+							href="https://wa.me/528130442945"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-black font-semibold hover:underline"
+						>
+							WhatsApp: 81 3044 2945
+						</a>
+					</li>
+				</ul>
+
+				<!-- Política de calidad -->
+				<div id="calidad" class="bg-black/90 rounded-2xl p-7">
+					<h3 class="text-white text-sm font-bold uppercase tracking-[0.15em] mb-4">Política de Calidad</h3>
+					<p class="text-xs text-gray-300 leading-relaxed">
+						En FMP Racks nos especializamos en la Ingeniería, fabricación e instalación de Sistemas de
+						almacenamiento, contamos con personal altamente capacitado con las competencias necesarias
+						para ejecutar procesos claros y definidos. Nuestro objetivo es ser reconocidos como socios
+						estratégicos y confiables brindando soluciones efectivas de almacenamiento, cumpliendo con
+						los requisitos específicos de nuestros clientes y con todas las normativas vigentes. Todo
+						esto, con el propósito de fomentar una cultura de mejora continua y alcanzar un crecimiento
+						constante y rentable.
+					</p>
+				</div>
+			</div>
+
+			<!-- Derecha: formulario -->
+			<div class="bg-white rounded-2xl p-7 md:p-9 shadow-2xl">
+				<h3 class="text-2xl font-bold text-black mb-2">Solicita tu cotización</h3>
+				<p class="text-sm text-brand-muted mb-7">Un asesor te contactará a la brevedad.</p>
+
+				<form id="form-cotizacion" class="space-y-5" novalidate>
+					<div>
+						<label for="nombre" class="block text-sm font-semibold text-black mb-2">Nombre *</label>
+						<input
+							type="text"
+							id="nombre"
+							name="nombre"
+							required
+							autocomplete="name"
+							placeholder="Nombre y apellido"
+							class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
+						/>
+					</div>
+
+					<div class="grid sm:grid-cols-2 gap-5">
+						<div>
+							<label for="email" class="block text-sm font-semibold text-black mb-2">Correo *</label>
+							<input
+								type="email"
+								id="email"
+								name="email"
+								required
+								autocomplete="email"
+								placeholder="nombre@empresa.com"
+								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
+							/>
+						</div>
+						<div>
+							<label for="telefono" class="block text-sm font-semibold text-black mb-2">Teléfono *</label>
+							<input
+								type="tel"
+								id="telefono"
+								name="telefono"
+								required
+								autocomplete="tel"
+								placeholder="10 dígitos"
+								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
+							/>
+						</div>
+					</div>
+
+					<div class="grid sm:grid-cols-2 gap-5">
+						<div>
+							<label for="ciudad" class="block text-sm font-semibold text-black mb-2">Ciudad *</label>
+							<input
+								type="text"
+								id="ciudad"
+								name="ciudad"
+								required
+								autocomplete="address-level2"
+								placeholder="Ej. Monterrey"
+								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
+							/>
+						</div>
+						<div>
+							<label for="producto" class="block text-sm font-semibold text-black mb-2">Producto o servicio *</label>
+							<select
+								id="producto"
+								name="producto"
+								required
+								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black bg-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
+							>
+								<option value="">Selecciona una opción</option>
+								{productosSelect.map((item) => <option value={item}>{item}</option>)}
+								<option value="Consultoría / Diseño">Consultoría / Diseño</option>
+								<option value="Instalación o reubicación">Instalación o reubicación</option>
+								<option value="Otro">Otro</option>
+							</select>
+						</div>
+					</div>
+
+					<div>
+						<label for="mensaje" class="block text-sm font-semibold text-black mb-2">Mensaje</label>
+						<textarea
+							id="mensaje"
+							name="mensaje"
+							rows="4"
+							placeholder="Cuéntanos las dimensiones de tu bodega, tipo de tarima y carga aproximada."
+							class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition resize-y"
+						></textarea>
+					</div>
+
+					<label class="flex items-start gap-3 text-sm text-brand-muted">
+						<input
+							type="checkbox"
+							id="no-robot"
+							name="no_robot"
+							required
+							class="mt-0.5 w-5 h-5 rounded border-gray-300 accent-[#ECCF52]"
+						/>
+						<span>No soy un robot y acepto ser contactado por un asesor de Famaper.</span>
+					</label>
+
+					<button
+						type="submit"
+						class="w-full bg-brand-primary text-black font-extrabold uppercase tracking-wide text-base px-8 py-4 rounded-lg shadow-lg hover:brightness-105 transition-all"
+					>
+						Enviar
+					</button>
+
+					<p id="form-status" class="text-sm text-center hidden"></p>
+				</form>
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 H. GSAP
+	============================================================ -->
+	<script is:inline>
+		// Slider de productos: 3 tarjetas por vista en desktop
+		document.addEventListener('DOMContentLoaded', () => {
+			if (typeof Swiper === 'undefined') return;
+
+			new Swiper('.productos-swiper', {
+				slidesPerView: 1,
+				spaceBetween: 24,
+				grabCursor: true,
+				loop: true,
+				autoHeight: false,
+				autoplay: {
+					delay: 3500,
+					disableOnInteraction: false,
+					pauseOnMouseEnter: true,
+				},
+				navigation: {
+					prevEl: '.productos-prev',
+					nextEl: '.productos-next',
+				},
+				pagination: {
+					el: '.productos-pagination',
+					clickable: true,
+				},
+				breakpoints: {
+					640: { slidesPerView: 2, spaceBetween: 24 },
+					1024: { slidesPerView: 3, spaceBetween: 24 },
+				},
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', () => {
+			if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+				gsap.registerPlugin(ScrollTrigger);
+
+				// Animar Hero
+				gsap.from('.hero-content > *', {
+					y: 30,
+					opacity: 0,
+					duration: 1,
+					stagger: 0.2,
+					ease: 'power3.out',
+				});
+
+				// Animar Tarjetas
+				const cards = gsap.utils.toArray('.anim-card');
+				cards.forEach((card) => {
+					gsap.from(card, {
+						scrollTrigger: { trigger: card, start: 'top 85%' },
+						y: 40,
+						opacity: 0,
+						duration: 0.6,
+						ease: 'power2.out',
+					});
+				});
+
+				// Títulos de sección
+				gsap.utils.toArray('.section-title').forEach((title) => {
+					gsap.from(title, {
+						scrollTrigger: { trigger: title, start: 'top 88%' },
+						y: 24,
+						opacity: 0,
+						duration: 0.7,
+						ease: 'power2.out',
+					});
+				});
+			}
+		});
+
+		// Validación ligera del formulario
+		document.addEventListener('DOMContentLoaded', () => {
+			const form = document.getElementById('form-cotizacion');
+			const status = document.getElementById('form-status');
+			if (!form || !status) return;
+
+			form.addEventListener('submit', (event) => {
+				event.preventDefault();
+
+				if (!form.checkValidity()) {
+					status.textContent = 'Revisa los campos obligatorios para continuar.';
+					status.className = 'text-sm text-center text-red-600';
+					form.reportValidity();
+					return;
+				}
+
+				status.textContent = '¡Gracias! Un asesor se contactará contigo a la brevedad.';
+				status.className = 'text-sm text-center text-green-700 font-semibold';
+				form.reset();
+			});
+		});
+	</script>
+</Layout>

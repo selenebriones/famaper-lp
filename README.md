@@ -79,7 +79,7 @@ Se usan como clases normales de Tailwind: `bg-brand-primary`, `text-brand-muted`
 
 ## Secciones de la landing
 
-1. **Hero** — Video de YouTube de fondo (silenciado, en loop, sin controles ni subtítulos) con capa oscura.
+1. **Hero** — Video MP4 propio de fondo (`public/videos/video_famaper_480p.mp4`, silenciado y en loop) con capa oscura.
 2. **Servicios** — Consultoría, Diseño, Fabricación e Instalación.
 3. **Banda E-E-A-T** — +20 años de experiencia, ISO 9001 y NOM-STPS-006, sobre imagen con degradado.
 4. **Productos** — Menorack y Selectivo como tarjetas destacadas, más un carrusel Swiper (3 por vista, autoplay 3.5s) con los otros 8 sistemas.
@@ -105,14 +105,13 @@ En `prefers-reduced-motion` se desactiva el video de fondo del hero y el scroll 
 
 ## Pendientes antes de producción
 
-- [ ] **`public/images/hero-racks-industriales.jpg`** — Póster de respaldo del video del hero. El archivo aún no existe; el hero funciona con el video, pero sin esta imagen no hay fallback si YouTube falla o el usuario tiene `prefers-reduced-motion`.
 - [ ] **`public/images/og-famaper.jpg`** — Imagen para Open Graph y Twitter Card (recomendado 1200×630). Referenciada en `Layout.astro`.
 - [ ] **Conectar el formulario.** Hoy solo valida en cliente y muestra un mensaje de confirmación; no envía nada. Falta el endpoint (`src/pages/api/lead.ts`) y el destino de los leads (n8n, Sheets, Brevo o CRM).
 - [ ] **Páginas legales.** El footer enlaza a `/politicas-de-privacidad` y `/terminos-y-condiciones`, que aún no existen.
 - [ ] **Dominio real** en `Astro.site` (`astro.config.mjs`) para que la URL canónica y las etiquetas OG apunten correctamente.
 - [ ] **Optimizar imágenes de producto.** Los PNG suman ~4.6 MB. Convertirlos a WebP reduciría el peso ~80% sin pérdida visible.
-- [ ] **Video del hero.** Depende de un video de YouTube de terceros. Considerar alojar un MP4 propio en `public/videos/` para no perder el fondo si lo eliminan.
 - [ ] Verificar si `public/images/foto_20anios.webp` sigue en uso; hoy no se referencia en el código.
+- [ ] **Peso del video del hero.** El MP4 pesa 3.8 MB y se descarga con `preload="auto"`. Si afecta el tiempo de carga en móvil, valorar una versión más corta o `preload="metadata"`.
 
 ---
 

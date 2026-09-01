@@ -89,6 +89,27 @@ Se usan como clases normales de Tailwind: `bg-brand-primary`, `text-brand-muted`
 
 ---
 
+## Formulario de leads
+
+El formulario valida en cliente y en servidor, captura los parámetros de campaña y envía el lead a dos destinos independientes.
+
+**Flujo:** el navegador hace `POST /api/lead` → el endpoint valida y reenvía a n8n y a Brevo en paralelo → si al menos uno acepta, redirige a `/gracias`.
+
+**Variables de entorno** (ver `.env.example`; en local van en `.env`, que está en `.gitignore`):
+
+| Variable | Uso |
+|---|---|
+| `N8N_WEBHOOK_URL` | Webhook que recibe el lead en JSON |
+| `BREVO_API_KEY` | Llave de API de Brevo (`xkeysib-...`, **no** una llave SMTP `xsmtpsib-...`) para el correo a ventas@famaper.com |
+
+**Anti-spam:** honeypot (`sitio_web`), trampa de tiempo (envíos en menos de 3 s se descartan) y límite de 5 envíos por IP cada 10 minutos. Todo se revalida en el servidor: las defensas del cliente son comodidad, no seguridad.
+
+**UTMs:** `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, `fbclid` y `msclkid` se leen de la URL en la primera visita y se guardan en `sessionStorage`, así sobreviven si la persona navega antes de llenar el formulario. Viajan en el payload y aparecen en el correo. Una campaña nueva pisa a la anterior.
+
+> El endpoint corre en el servidor (`prerender = false`) mediante el adaptador de Vercel. El resto de las páginas sigue siendo estático.
+
+---
+
 ## Animaciones
 
 GSAP se registra en `Layout.astro` y las animaciones se declaran al final de `index.astro`, siempre dentro de `document.addEventListener('DOMContentLoaded', ...)`.
@@ -106,7 +127,8 @@ En `prefers-reduced-motion` se desactiva el video de fondo del hero y el scroll 
 ## Pendientes antes de producción
 
 - [ ] **`public/images/og-famaper.jpg`** — Imagen para Open Graph y Twitter Card (recomendado 1200×630). Referenciada en `Layout.astro`.
-- [ ] **Conectar el formulario.** Hoy solo valida en cliente y muestra un mensaje de confirmación; no envía nada. Falta el endpoint (`src/pages/api/lead.ts`) y el destino de los leads (n8n, Sheets, Brevo o CRM).
+- [ ] **Activar el workflow de n8n.** El webhook responde 404 (`workflow must be active`). Mientras siga inactivo, los leads llegan solo por correo vía Brevo.
+- [ ] **Cargar las variables de entorno en Vercel** (`N8N_WEBHOOK_URL` y `BREVO_API_KEY`). Sin ellas, el endpoint no entrega el lead en producción.
 - [ ] **Páginas legales.** El footer enlaza a `/politicas-de-privacidad` y `/terminos-y-condiciones`, que aún no existen.
 - [ ] **Dominio real** en `Astro.site` (`astro.config.mjs`) para que la URL canónica y las etiquetas OG apunten correctamente.
 - [ ] **Optimizar imágenes de producto.** Los PNG suman ~4.6 MB. Convertirlos a WebP reduciría el peso ~80% sin pérdida visible.

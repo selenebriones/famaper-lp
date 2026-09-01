@@ -5,12 +5,14 @@ interface Props {
 	title?: string;
 	description?: string;
 	ogImage?: string;
+	noindex?: boolean;
 }
 
 const {
 	title = 'Famaper | Fabricación, diseño e instalación de racks industriales',
 	description = 'Famaper diseña, fabrica e instala racks industriales y sistemas de almacenamiento a la medida: selectivo, Drive-In, cantilever, mezzanines y dinámicos. Cobertura nacional.',
 	ogImage = '/images/og-famaper.jpg',
+	noindex = false,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.famaper.com').href;
@@ -44,7 +46,7 @@ const year = new Date().getFullYear();
 		<!-- SEO -->
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="robots" content="index, follow" />
+		<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 		<meta name="theme-color" content="#ECCF52" />
 		<link rel="canonical" href={canonical} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />

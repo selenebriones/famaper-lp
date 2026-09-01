@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+	title="Gracias por tu solicitud | Famaper"
+	description="Recibimos tu solicitud de cotización. Un asesor especializado de Famaper se pondrá en contacto contigo a la brevedad."
+	noindex
+>
+	<section class="relative min-h-[70vh] flex items-center bg-brand-secondary py-20 md:py-28">
+		<div class="max-w-3xl mx-auto px-6 text-center">
+			<span
+				class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-brand-primary text-black text-4xl shadow-lg mb-8"
+			>
+				<i class="ph-bold ph-check"></i>
+			</span>
+
+			<h1 class="text-3xl md:text-4xl xl:text-5xl font-extrabold text-black uppercase leading-tight mb-6">
+				¡Gracias por contactarnos!
+			</h1>
+
+			<p class="text-base md:text-lg text-brand-muted leading-relaxed mb-10">
+				Recibimos tu solicitud correctamente. Un asesor especializado en sistemas de almacenaje
+				revisará tu información y se pondrá en contacto contigo a la brevedad para agendar un
+				levantamiento técnico.
+			</p>
+
+			<div class="bg-white rounded-2xl p-7 md:p-8 shadow-sm mb-10">
+				<h2 class="text-sm font-bold uppercase tracking-[0.15em] text-black mb-5">
+					¿Necesitas atención inmediata?
+				</h2>
+				<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+					<a
+						href="https://wa.me/528130442945"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-brand-primary text-black font-bold px-7 py-3.5 rounded-lg shadow-md hover:brightness-105 transition-all"
+					>
+						<i class="ph-bold ph-whatsapp-logo text-lg"></i>
+						WhatsApp: 81 3044 2945
+					</a>
+					<a
+						href="mailto:ventas@famaper.com"
+						class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-gray-300 text-black font-semibold px-7 py-3.5 rounded-lg hover:bg-gray-100 transition-all"
+					>
+						<i class="ph-bold ph-envelope-simple text-lg"></i>
+						ventas@famaper.com
+					</a>
+				</div>
+			</div>
+
+			<div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm">
+				<a href="/" class="inline-flex items-center gap-2 font-bold text-black hover:text-brand-muted transition-colors">
+					<i class="ph-bold ph-arrow-left"></i>
+					Volver al inicio
+				</a>
+				<a href="/#productos" class="inline-flex items-center gap-2 font-bold text-black hover:text-brand-muted transition-colors">
+					Ver catálogo de productos
+					<i class="ph-bold ph-arrow-right"></i>
+				</a>
+			</div>
+		</div>
+	</section>
+</Layout>

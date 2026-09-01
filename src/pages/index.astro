@@ -630,6 +630,15 @@ const enSlider = productos.filter((p) => !p.featured);
 				<p class="text-sm text-brand-muted mb-7">Un asesor te contactará a la brevedad.</p>
 
 				<form id="form-cotizacion" class="space-y-5" novalidate>
+					<!-- Honeypot: invisible para personas, tentador para bots. No tocar. -->
+					<div class="absolute left-[-9999px] top-auto w-px h-px overflow-hidden" aria-hidden="true">
+						<label for="sitio-web">No llenar este campo</label>
+						<input type="text" id="sitio-web" name="sitio_web" tabindex="-1" autocomplete="off" />
+					</div>
+					<input type="hidden" name="form_ts" id="form-ts" />
+					<input type="hidden" name="origen" id="form-origen" />
+					<div id="utm-fields" hidden></div>
+
 					<div>
 						<label for="nombre" class="block text-sm font-semibold text-black mb-2">Nombre *</label>
 						<input
@@ -637,7 +646,11 @@ const enSlider = productos.filter((p) => !p.featured);
 							id="nombre"
 							name="nombre"
 							required
+							minlength="3"
+							maxlength="60"
+							pattern="[A-Za-zÁÉÍÓÚáéíóúÑñÜü'.\- ]{3,60}"
 							autocomplete="name"
+							autocapitalize="words"
 							placeholder="Nombre y apellido"
 							class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
 						/>
@@ -651,7 +664,12 @@ const enSlider = productos.filter((p) => !p.featured);
 								id="email"
 								name="email"
 								required
+								maxlength="120"
+								pattern="[^@\s]+@[^@\s]+\.[A-Za-z]{2,}"
 								autocomplete="email"
+								autocapitalize="off"
+								spellcheck="false"
+								inputmode="email"
 								placeholder="nombre@empresa.com"
 								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
 							/>
@@ -663,6 +681,9 @@ const enSlider = productos.filter((p) => !p.featured);
 								id="telefono"
 								name="telefono"
 								required
+								inputmode="tel"
+								maxlength="20"
+								pattern="[0-9\+\-\s\(\)]{10,20}"
 								autocomplete="tel"
 								placeholder="10 dígitos"
 								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
@@ -678,7 +699,11 @@ const enSlider = productos.filter((p) => !p.featured);
 								id="ciudad"
 								name="ciudad"
 								required
+								minlength="3"
+								maxlength="60"
+								pattern="[A-Za-zÁÉÍÓÚáéíóúÑñÜü'.\- ]{3,60}"
 								autocomplete="address-level2"
+								autocapitalize="words"
 								placeholder="Ej. Monterrey"
 								class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition"
 							/>
@@ -706,6 +731,7 @@ const enSlider = productos.filter((p) => !p.featured);
 							id="mensaje"
 							name="mensaje"
 							rows="4"
+							maxlength="800"
 							placeholder="Cuéntanos las dimensiones de tu bodega, tipo de tarima y carga aproximada."
 							class="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-black placeholder:text-gray-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/40 transition resize-y"
 						></textarea>
@@ -724,7 +750,7 @@ const enSlider = productos.filter((p) => !p.featured);
 
 					<button
 						type="submit"
-						class="w-full bg-brand-primary text-black font-extrabold uppercase tracking-wide text-base px-8 py-4 rounded-lg shadow-lg hover:brightness-105 transition-all"
+						class="w-full bg-brand-primary text-black font-extrabold uppercase tracking-wide text-base px-8 py-4 rounded-lg shadow-lg hover:brightness-105 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
 					>
 						Enviar
 					</button>
@@ -807,25 +833,247 @@ const enSlider = productos.filter((p) => !p.featured);
 			}
 		});
 
-		// Validación ligera del formulario
+		// Validación por campo + honeypot + redirección a /gracias
 		document.addEventListener('DOMContentLoaded', () => {
 			const form = document.getElementById('form-cotizacion');
 			const status = document.getElementById('form-status');
 			if (!form || !status) return;
 
-			form.addEventListener('submit', (event) => {
-				event.preventDefault();
+			// Marca de tiempo: un envío casi instantáneo delata un bot.
+			const ts = document.getElementById('form-ts');
+			if (ts) ts.value = String(Date.now());
 
-				if (!form.checkValidity()) {
-					status.textContent = 'Revisa los campos obligatorios para continuar.';
-					status.className = 'text-sm text-center text-red-600';
-					form.reportValidity();
+			// Origen: URL de la página donde se llenó el formulario, para los reportes.
+			const origen = document.getElementById('form-origen');
+			if (origen) origen.value = window.location.href.slice(0, 300);
+
+			// UTMs: se leen de la URL en la primera visita y se guardan en sessionStorage,
+			// para que sobrevivan si la persona navega antes de llenar el formulario.
+			const UTM_STORE = 'famaper_utm';
+			const UTM_KEYS = [
+				'utm_source',
+				'utm_medium',
+				'utm_campaign',
+				'utm_term',
+				'utm_content',
+				'gclid',
+				'fbclid',
+				'msclkid',
+			];
+
+			const leerUtm = () => {
+				let guardados = {};
+				try {
+					guardados = JSON.parse(sessionStorage.getItem(UTM_STORE) || '{}');
+				} catch {
+					guardados = {};
+				}
+
+				const params = new URLSearchParams(window.location.search);
+				const actuales = {};
+				UTM_KEYS.forEach((clave) => {
+					const valor = params.get(clave);
+					if (valor) actuales[clave] = valor.slice(0, 200);
+				});
+
+				// Una campaña nueva pisa a la anterior; si no hay, conservamos la guardada.
+				const datos = Object.keys(actuales).length ? actuales : guardados;
+				if (Object.keys(actuales).length) {
+					datos.landing_url = window.location.href.slice(0, 300);
+				} else if (guardados.landing_url) {
+					datos.landing_url = guardados.landing_url;
+				}
+
+				try {
+					sessionStorage.setItem(UTM_STORE, JSON.stringify(datos));
+				} catch {
+					/* modo privado: seguimos con los datos en memoria */
+				}
+				return datos;
+			};
+
+			const utm = leerUtm();
+
+			// Se inyectan como campos ocultos para que también viajen si el form se envía nativo.
+			const contenedorUtm = document.getElementById('utm-fields');
+			if (contenedorUtm) {
+				Object.entries(utm).forEach(([clave, valor]) => {
+					if (!valor) return;
+					const input = document.createElement('input');
+					input.type = 'hidden';
+					input.name = clave;
+					input.value = valor;
+					contenedorUtm.appendChild(input);
+				});
+			}
+
+			const MENSAJES = {
+				nombre: {
+					valueMissing: 'Escribe tu nombre.',
+					tooShort: 'El nombre debe tener al menos 3 caracteres.',
+					patternMismatch: 'El nombre solo puede contener letras.',
+				},
+				email: {
+					valueMissing: 'Escribe tu correo electrónico.',
+					typeMismatch: 'El correo no es válido. Ejemplo: nombre@empresa.com',
+					patternMismatch: 'El correo no es válido. Ejemplo: nombre@empresa.com',
+				},
+				telefono: {
+					valueMissing: 'Escribe tu teléfono.',
+					patternMismatch: 'Escribe un teléfono válido a 10 dígitos.',
+				},
+				ciudad: {
+					valueMissing: 'Escribe tu ciudad.',
+					tooShort: 'La ciudad debe tener al menos 3 caracteres.',
+					patternMismatch: 'La ciudad solo puede contener letras.',
+				},
+				producto: { valueMissing: 'Selecciona un producto o servicio.' },
+				mensaje: { tooLong: 'El mensaje es demasiado largo.' },
+				no_robot: { valueMissing: 'Confirma que no eres un robot para continuar.' },
+			};
+
+			const campos = [...form.elements].filter(
+				(el) => el.name && MENSAJES[el.name] && !el.disabled
+			);
+
+			const errorDe = (campo) => {
+				const reglas = MENSAJES[campo.name] || {};
+
+				// El patrón acepta espacios y paréntesis; aquí exigimos 10 dígitos reales.
+				if (campo.name === 'telefono' && campo.value.trim() !== '') {
+					const digitos = campo.value.replace(/\D/g, '').replace(/^52/, '');
+					if (digitos.length !== 10) return 'Escribe un teléfono válido a 10 dígitos.';
+				}
+
+				const v = campo.validity;
+				for (const clave of ['valueMissing', 'typeMismatch', 'patternMismatch', 'tooShort', 'tooLong']) {
+					if (v[clave] && reglas[clave]) return reglas[clave];
+				}
+				return v.valid ? '' : 'Revisa este campo.';
+			};
+
+			const contenedorDe = (campo) =>
+				campo.type === 'checkbox' ? campo.closest('label') : campo.parentElement;
+
+			const pintar = (campo, mensaje) => {
+				const cont = contenedorDe(campo);
+				if (!cont) return;
+				let aviso = cont.querySelector('[data-error]');
+
+				if (!mensaje) {
+					if (aviso) aviso.remove();
+					campo.classList.remove('border-red-500');
+					campo.removeAttribute('aria-invalid');
+					campo.removeAttribute('aria-describedby');
 					return;
 				}
 
-				status.textContent = '¡Gracias! Un asesor se contactará contigo a la brevedad.';
-				status.className = 'text-sm text-center text-green-700 font-semibold';
-				form.reset();
+				if (!aviso) {
+					aviso = document.createElement('p');
+					aviso.dataset.error = '';
+					aviso.id = 'error-' + (campo.id || campo.name);
+					aviso.className = 'mt-1.5 text-xs text-red-600';
+					aviso.setAttribute('role', 'alert');
+					cont.appendChild(aviso);
+				}
+				aviso.textContent = mensaje;
+				campo.classList.add('border-red-500');
+				campo.setAttribute('aria-invalid', 'true');
+				campo.setAttribute('aria-describedby', aviso.id);
+			};
+
+			const validar = (campo) => {
+				const mensaje = errorDe(campo);
+				pintar(campo, mensaje);
+				return !mensaje;
+			};
+
+			campos.forEach((campo) => {
+				// Primer aviso al salir del campo; después corrige mientras escribe.
+				campo.addEventListener('blur', () => validar(campo));
+				campo.addEventListener('change', () => validar(campo));
+				campo.addEventListener('input', () => {
+					if (campo.getAttribute('aria-invalid') === 'true') validar(campo);
+				});
+			});
+
+			form.addEventListener('submit', async (event) => {
+				event.preventDefault();
+
+				// Honeypot: si viene lleno, es un bot. Fingimos éxito y no procesamos.
+				const trampa = form.elements['sitio_web'];
+				const inicio = ts ? Number(ts.value) : 0;
+				const demasiadoRapido = inicio && Date.now() - inicio < 3000;
+
+				if ((trampa && trampa.value.trim() !== '') || demasiadoRapido) {
+					window.location.href = '/gracias';
+					return;
+				}
+
+				const invalidos = campos.filter((campo) => !validar(campo));
+
+				if (invalidos.length) {
+					status.textContent = 'Revisa los campos marcados para continuar.';
+					status.className = 'text-sm text-center text-red-600';
+					invalidos[0].focus();
+					invalidos[0].scrollIntoView({ block: 'center', behavior: 'smooth' });
+					return;
+				}
+
+				status.className = 'hidden';
+				const boton = form.querySelector('button[type="submit"]');
+				const textoOriginal = boton ? boton.textContent : 'Enviar';
+				if (boton) {
+					boton.disabled = true;
+					boton.textContent = 'Enviando...';
+				}
+
+				const datos = Object.fromEntries(new FormData(form).entries());
+				datos.no_robot = form.elements['no_robot'].checked;
+				datos.landing_url = utm.landing_url || window.location.href;
+				datos.origen = window.location.href.slice(0, 300);
+
+				const restaurarBoton = () => {
+					if (boton) {
+						boton.disabled = false;
+						boton.textContent = textoOriginal;
+					}
+				};
+
+				try {
+					const respuesta = await fetch('/api/lead', {
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify(datos),
+					});
+
+					if (respuesta.ok) {
+						sessionStorage.removeItem(UTM_STORE);
+						window.location.href = '/gracias';
+						return;
+					}
+
+					const cuerpo = await respuesta.json().catch(() => ({}));
+
+					// 422: el servidor rechazó campos concretos; los marcamos uno por uno.
+					if (respuesta.status === 422 && cuerpo.errors) {
+						Object.entries(cuerpo.errors).forEach(([nombre, mensaje]) => {
+							const campo = form.elements[nombre];
+							if (campo) pintar(campo, mensaje);
+						});
+						status.textContent = 'Revisa los campos marcados para continuar.';
+						status.className = 'text-sm text-center text-red-600';
+					} else {
+						status.textContent =
+							cuerpo.error || 'No se pudo enviar la solicitud. Intenta de nuevo.';
+						status.className = 'text-sm text-center text-red-600';
+					}
+				} catch {
+					status.textContent = 'No se pudo enviar la solicitud. Revisa tu conexión.';
+					status.className = 'text-sm text-center text-red-600';
+				}
+
+				restaurarBoton();
 			});
 		});
 	</script>

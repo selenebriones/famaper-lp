@@ -20,3 +20,6 @@ Thumbs.db
 .claude/
 *.log
 npm-debug.log*
+
+# Salida del adaptador de Vercel
+.vercel/

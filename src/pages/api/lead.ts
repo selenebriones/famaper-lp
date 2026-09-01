@@ -76,6 +76,16 @@ const FIELD_RULES: Record<string, FieldRule> = {
 
 const requestLog = new Map<string, number[]>();
 
+// import.meta.env se resuelve al compilar; process.env se lee en ejecución.
+// Consultar ambos permite cambiar variables en Vercel sin volver a desplegar.
+function env(nombre: string): string | undefined {
+	return (
+		(import.meta.env as Record<string, string | undefined>)[nombre] ||
+		(typeof process !== 'undefined' ? process.env?.[nombre] : undefined) ||
+		undefined
+	);
+}
+
 function isRateLimited(ip: string): boolean {
 	const now = Date.now();
 	const timestamps = (requestLog.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
@@ -229,7 +239,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 	// recibido: si n8n está caído, el correo salva la solicitud, y viceversa.
 	const destinos: Promise<{ nombre: string; ok: boolean }>[] = [];
 
-	const webhookUrl = import.meta.env.N8N_WEBHOOK_URL;
+	const webhookUrl = env('N8N_WEBHOOK_URL');
 	if (webhookUrl) {
 		destinos.push(
 			fetch(webhookUrl, {
@@ -250,7 +260,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 		console.error('N8N_WEBHOOK_URL no está configurada.');
 	}
 
-	const brevoKey = import.meta.env.BREVO_API_KEY;
+	const brevoKey = env('BREVO_API_KEY');
 	if (brevoKey) {
 		destinos.push(
 			fetch(BREVO_API_URL, {

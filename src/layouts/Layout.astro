@@ -271,6 +271,31 @@ const year = new Date().getFullYear();
 					});
 				}
 			});
+
+			// Al llegar con un ancla desde otra página (por ejemplo /#productos desde
+			// /gracias), el navegador intenta saltar antes de que el hero, el video y
+			// las imágenes fijen su altura, y el salto se pierde. Lo repetimos nosotros
+			// cuando la página terminó de cargar y ScrollTrigger ya recalculó.
+			window.addEventListener('load', () => {
+				if (!window.location.hash) return;
+
+				let destino;
+				try {
+					destino = document.querySelector(window.location.hash);
+				} catch {
+					return;
+				}
+				if (!destino) return;
+
+				const saltar = () => {
+					if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+					destino.scrollIntoView({ block: 'start', behavior: 'auto' });
+				};
+
+				requestAnimationFrame(() => requestAnimationFrame(saltar));
+				// Segundo intento por si alguna imagen tardía vuelve a mover el layout.
+				setTimeout(saltar, 350);
+			});
 		</script>
 	</body>
 </html>

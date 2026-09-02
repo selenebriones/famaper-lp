@@ -39,7 +39,7 @@
   }
 
   /* Compensa el header fijo al navegar por anclas */
-  :target {
+  [id] {
     scroll-margin-top: 6rem;
   }
 }

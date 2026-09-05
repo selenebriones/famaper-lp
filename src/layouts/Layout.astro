@@ -17,9 +17,10 @@ const {
 
 const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.famaper.com').href;
 
+// El orden sigue el de las secciones en la página.
 const navLinks = [
-	{ label: 'Servicios', href: '/#servicios' },
 	{ label: 'Productos', href: '/#productos' },
+	{ label: 'Servicios', href: '/#servicios' },
 	{ label: 'Metodología', href: '/#metodologia' },
 	{ label: 'Calidad', href: '/#calidad' },
 ];

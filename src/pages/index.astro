@@ -35,8 +35,6 @@ const productos = [
 		image: '/images/img-menorack-01.png',
 		description:
 			'Rack industrial ligero diseñado para la manipulación manual de mercancía con capacidad de hasta 1800 kg. Cuenta con entrepaño de madera o panel metálico, perfecto para operaciones de picking.',
-		span: 'md:col-span-2',
-		featured: true,
 	},
 	{
 		icon: 'ph-stack',
@@ -44,8 +42,6 @@ const productos = [
 		image: '/images/img-selectivo-02.png',
 		description:
 			'El sistema más versátil para la venta de racks. Ideal para el almacenamiento de productos en tarimas con acceso directo a cada estiba, adaptándose a cualquier tipo de carga, volumen y peso.',
-		span: 'md:col-span-2',
-		featured: true,
 	},
 	{
 		icon: 'ph-arrows-in-line-horizontal',
@@ -53,8 +49,6 @@ const productos = [
 		image: '/images/img-drivein-06.png',
 		description:
 			'Maximiza la utilización del volumen disponible. Este sistema de racks de almacenamiento es perfecto para guardar productos homogéneos de alta densidad y gran cantidad de tarimas por referencia.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-arrow-line-left',
@@ -62,8 +56,6 @@ const productos = [
 		image: '/images/img-pushback-02.png',
 		description:
 			'Almacenaje por acumulación que permite gestionar de 2 a 6 tarimas en profundidad por nivel. Excelente solución de racks para almacenamiento industrial en cámaras de refrigeración y congelación.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-align-left',
@@ -71,8 +63,6 @@ const productos = [
 		image: '/images/img-cantilever-03.png',
 		description:
 			'Diseñado para barras, tubos o perfiles de gran longitud (+3 metros). Estructura robusta para la estibación segura de cargas largas y volumétricas.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-steps',
@@ -80,8 +70,6 @@ const productos = [
 		image: '/images/img-entrepiso-06.jpeg',
 		description:
 			'Niveles de pisos multiplicados y sostenidos por la misma estructura de racks y anaqueles, aprovechando la altura total del almacén para carga manual.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-buildings',
@@ -89,8 +77,6 @@ const productos = [
 		image: '/images/img-mezzanine-03.png',
 		description:
 			'Duplica o triplica la superficie útil de tu nave. Ideal para almacenamiento de cargas de bajo peso, áreas de trabajo u oficinas operativas.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-arrows-clockwise',
@@ -98,8 +84,6 @@ const productos = [
 		image: '/images/img-dinamico-01.png',
 		description:
 			'Diseñado para alta densidad de rotación (FIFO). Utiliza rodillos o ruedas con controladores de velocidad para desplazar hasta 40 tarimas de fondo con total seguridad.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-package',
@@ -107,8 +91,6 @@ const productos = [
 		image: '/images/img-cartonflow-02.png',
 		description:
 			'Aumenta la velocidad del surtido bajo el principio de "Primeras Entradas, Primeras Salidas". La solución clave para alta densidad de cajas y productos ligeros.',
-		span: '',
-		featured: false,
 	},
 	{
 		icon: 'ph-building-office',
@@ -116,9 +98,13 @@ const productos = [
 		image: '/images/img-autoportante-01.png',
 		description:
 			'Gran obra de ingeniería donde los propios racks industriales forman parte de la estructura resistente del edificio o nave industrial.',
-		span: '',
-		featured: false,
 	},
+];
+
+const certificaciones = [
+	{ image: '/images/iso9001.webp', alt: 'Certificación ISO 9001' },
+	{ image: '/images/logo_hecho_en_mexico.webp', alt: 'Hecho en México' },
+	{ image: '/images/ANETIF.webp', alt: 'ANETIF' },
 ];
 
 const metodologia = [
@@ -188,10 +174,6 @@ const otrasOficinas = [
 
 const productosSelect = productos.map((p) => p.title);
 
-// Menorack y Selectivo se quedan como tarjetas destacadas del Bento;
-// el resto se presenta en un slider de 3 por vista.
-const destacados = productos.filter((p) => p.featured);
-const enSlider = productos.filter((p) => !p.featured);
 ---
 
 <Layout>
@@ -262,84 +244,7 @@ const enSlider = productos.filter((p) => !p.featured);
 	</section>
 
 	<!-- ============================================================
-		 B. SERVICIOS
-	============================================================ -->
-	<section id="servicios" class="py-20 md:py-28 bg-white">
-		<div class="max-w-7xl mx-auto px-6">
-			<div class="text-center max-w-3xl mx-auto mb-14">
-				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-muted">Servicios</span>
-				<h2 class="section-title font-extrabold text-black mt-4">
-					Un solo proveedor para todo el ciclo de tu proyecto
-				</h2>
-			</div>
-
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-				{servicios.map((servicio) => (
-					<article class="anim-card bg-white border border-gray-200 rounded-2xl p-7 transition-all hover:shadow-xl hover:-translate-y-1">
-						<span class="w-14 h-14 rounded-xl bg-brand-primary flex items-center justify-center text-black text-2xl mb-6">
-							<i class={`ph-bold ${servicio.icon}`}></i>
-						</span>
-						<h3 class="text-xl font-bold text-black mb-3">{servicio.title}</h3>
-						<p class="text-sm text-brand-muted leading-relaxed">{servicio.description}</p>
-					</article>
-				))}
-			</div>
-		</div>
-	</section>
-
-	<!-- ============================================================
-		 C. BANDA E-E-A-T (+20 AÑOS)
-	============================================================ -->
-	<section class="relative bg-brand-secondary py-20 md:py-24 overflow-hidden">
-		<!-- Imagen de fondo con degradado de gris a imagen (izquierda → derecha) -->
-		<img
-			src="/images/20anios.webp"
-			alt=""
-			aria-hidden="true"
-			class="absolute inset-0 w-full h-full object-cover"
-			loading="eager"
-			fetchpriority="low"
-			decoding="async"
-		/>
-		<div
-			class="absolute inset-0 bg-gradient-to-r from-brand-secondary from-25% via-brand-secondary/95 to-brand-secondary/40"
-		></div>
-
-		<div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center lg:items-end">
-			<div>
-				<h2 class="text-3xl md:text-4xl xl:text-5xl font-extrabold text-black uppercase leading-tight mb-6">
-					<span class="text-brand-primary">+20 Años</span> de experiencia en sistemas de almacenaje
-				</h2>
-				<p class="text-base md:text-lg text-brand-muted leading-relaxed">
-					En Famaper combinamos más de dos décadas de trayectoria con tecnología de punta. Nuestro
-					equipo de ingenieros es especialista en el desarrollo y venta de racks para almacenamiento
-					industrial, respaldado por cálculos estructurales y sísmicos que garantizan la máxima
-					seguridad en cada proyecto.
-				</p>
-			</div>
-
-			<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-				<div class="anim-card bg-white rounded-2xl p-6 text-center">
-					<i class="ph-bold ph-medal text-3xl text-brand-primary"></i>
-					<p class="text-2xl font-extrabold text-black mt-4">+20 Años</p>
-					<p class="text-xs text-brand-muted mt-2 leading-snug">De trayectoria en almacenaje industrial</p>
-				</div>
-				<div class="anim-card bg-white rounded-2xl p-6 text-center">
-					<i class="ph-bold ph-certificate text-3xl text-brand-primary"></i>
-					<p class="text-2xl font-extrabold text-black mt-4">ISO 9001</p>
-					<p class="text-xs text-brand-muted mt-2 leading-snug">Fabricación con acero de alta resistencia</p>
-				</div>
-				<div class="anim-card bg-white rounded-2xl p-6 text-center">
-					<i class="ph-bold ph-shield-check text-3xl text-brand-primary"></i>
-					<p class="text-2xl font-extrabold text-black mt-4">NOM-STPS-006</p>
-					<p class="text-xs text-brand-muted mt-2 leading-snug">Instalación y montaje normado</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- ============================================================
-		 D. PRODUCTOS (BENTO GRID)
+		 B. PRODUCTOS (CATÁLOGO)
 	============================================================ -->
 	<section id="productos" class="py-20 md:py-28 bg-white">
 		<div class="max-w-7xl mx-auto px-6">
@@ -354,43 +259,11 @@ const enSlider = productos.filter((p) => !p.featured);
 				</p>
 			</div>
 
-			<!-- Destacados: Menorack y Selectivo -->
-			<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-				{destacados.map((producto) => (
-					<article class="anim-card group rounded-2xl overflow-hidden flex flex-col bg-brand-dark text-white transition-all hover:-translate-y-1 hover:shadow-xl">
-						<div class="relative overflow-hidden aspect-16/9 bg-brand-dark">
-							<img
-								src={producto.image}
-								alt={`Rack ${producto.title} fabricado e instalado por Famaper`}
-								class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-								loading="lazy"
-								decoding="async"
-							/>
-							<span class="absolute bottom-4 left-4 w-11 h-11 rounded-xl bg-brand-primary flex items-center justify-center text-black text-xl shadow-lg">
-								<i class={`ph-bold ${producto.icon}`}></i>
-							</span>
-						</div>
-
-						<div class="p-7 flex flex-col grow">
-							<h3 class="text-2xl font-bold text-white mb-3">{producto.title}</h3>
-							<p class="text-sm text-gray-300 leading-relaxed grow">{producto.description}</p>
-							<a
-								href="#contacto"
-								class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-primary transition-colors"
-							>
-								Cotizar este sistema
-								<i class="ph-bold ph-arrow-right transition-transform group-hover:translate-x-1"></i>
-							</a>
-						</div>
-					</article>
-				))}
-			</div>
-
-			<!-- Slider: resto del catálogo, 3 por vista -->
+			<!-- Slider: catálogo completo, 3 por vista -->
 			<div class="anim-card relative">
 				<div class="swiper productos-swiper !pb-14">
 					<div class="swiper-wrapper">
-						{enSlider.map((producto) => (
+						{productos.map((producto) => (
 							<div class="swiper-slide h-auto">
 								<article class="group h-full rounded-2xl overflow-hidden flex flex-col bg-brand-secondary text-black border border-transparent transition-all hover:border-brand-primary hover:shadow-xl">
 									<div class="relative overflow-hidden aspect-4/3 bg-brand-dark">
@@ -445,9 +318,82 @@ const enSlider = productos.filter((p) => !p.featured);
 	</section>
 
 	<!-- ============================================================
+		 C. SERVICIOS
+	============================================================ -->
+	<section id="servicios" class="py-20 md:py-28 bg-brand-secondary">
+		<div class="max-w-7xl mx-auto px-6">
+			<div class="text-center max-w-3xl mx-auto mb-14">
+				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-muted">Servicios</span>
+				<h2 class="section-title font-extrabold text-black mt-4">
+					Un solo proveedor para todo el ciclo de tu proyecto
+				</h2>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+				{servicios.map((servicio) => (
+					<article class="anim-card bg-white border border-gray-200 rounded-2xl p-7 transition-all hover:shadow-xl hover:-translate-y-1">
+						<span class="w-14 h-14 rounded-xl bg-brand-primary flex items-center justify-center text-black text-2xl mb-6">
+							<i class={`ph-bold ${servicio.icon}`}></i>
+						</span>
+						<h3 class="text-xl font-bold text-black mb-3">{servicio.title}</h3>
+						<p class="text-sm text-brand-muted leading-relaxed">{servicio.description}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
+		 D. BANDA E-E-A-T (+20 AÑOS)
+	============================================================ -->
+	<section class="relative bg-brand-secondary py-20 md:py-24 overflow-hidden">
+		<!-- Imagen de fondo con degradado de gris a imagen (izquierda → derecha) -->
+		<img
+			src="/images/20anios.webp"
+			alt=""
+			aria-hidden="true"
+			class="absolute inset-0 w-full h-full object-cover"
+			loading="eager"
+			fetchpriority="low"
+			decoding="async"
+		/>
+		<div
+			class="absolute inset-0 bg-gradient-to-r from-brand-primary from-25% via-brand-primary/95 to-brand-primary/40"
+		></div>
+
+		<div class="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center lg:items-end">
+			<div>
+				<h2 class="text-3xl md:text-4xl xl:text-5xl font-extrabold text-black uppercase leading-tight mb-6">
+					<span class="text-white">+20 Años</span> de experiencia en sistemas de almacenaje
+				</h2>
+				<p class="text-base md:text-lg text-brand-muted leading-relaxed">
+					En Famaper combinamos más de dos décadas de trayectoria con tecnología de punta. Nuestro
+					equipo de ingenieros es especialista en el desarrollo y venta de racks para almacenamiento
+					industrial, respaldado por cálculos estructurales y sísmicos que garantizan la máxima
+					seguridad en cada proyecto.
+				</p>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+				{certificaciones.map((cert) => (
+					<div class="anim-card bg-white rounded-2xl p-6 flex items-center justify-center min-h-[9.5rem]">
+						<img
+							src={cert.image}
+							alt={cert.alt}
+							class="max-h-24 w-auto object-contain"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- ============================================================
 		 E. METODOLOGÍA PARA PROYECTOS
 	============================================================ -->
-	<section id="metodologia" class="py-20 md:py-28 bg-brand-secondary">
+	<section id="metodologia" class="py-20 md:py-28 bg-white">
 		<div class="max-w-7xl mx-auto px-6">
 			<div class="text-center max-w-3xl mx-auto mb-14">
 				<span class="text-xs font-bold uppercase tracking-[0.25em] text-brand-muted">Metodología</span>
@@ -456,7 +402,7 @@ const enSlider = productos.filter((p) => !p.featured);
 
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 				{metodologia.map((paso) => (
-					<article class="anim-card bg-white rounded-2xl p-8 transition-all hover:shadow-xl hover:-translate-y-1">
+					<article class="anim-card bg-white rounded-2xl border border-gray-200 p-8 transition-all hover:border-brand-primary hover:shadow-xl hover:-translate-y-1">
 						<div class="flex items-center justify-between mb-6">
 							<span class="w-14 h-14 rounded-2xl bg-brand-dark text-brand-primary flex items-center justify-center text-xl font-extrabold">
 								{paso.number}

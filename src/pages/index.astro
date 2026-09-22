@@ -365,7 +365,7 @@ const productosSelect = productos.map((p) => p.title);
 							</p>
 							<button
 								type="button"
-								class="ver-galeria-btn mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-brand-primary hover:text-white transition-colors"
+								class="ver-galeria-btn mt-3 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-brand-primary hover:text-white transition-colors cursor-pointer"
 								data-gallery-index={i}
 								aria-haspopup="dialog"
 							>
@@ -427,7 +427,7 @@ const productosSelect = productos.map((p) => p.title);
 		</div>
 	</section>
 
-	<script is:inline define:vars={{ galerias: productos.map((p) => ({ title: p.title, images: p.gallery })) }}>
+	<script is:inline define:vars={{ galerias: productos.map((p) => ({ title: p.title, images: [p.image, ...p.gallery] })) }}>
 		document.addEventListener('DOMContentLoaded', () => {
 			const modal = document.getElementById('galeria-modal');
 			const overlay = document.getElementById('galeria-overlay');

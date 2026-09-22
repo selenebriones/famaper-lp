@@ -9,8 +9,8 @@ interface Props {
 }
 
 const {
-	title = 'Famaper | Fabricación, diseño e instalación de racks industriales',
-	description = 'Famaper diseña, fabrica e instala racks industriales y sistemas de almacenamiento a la medida: selectivo, Drive-In, cantilever, mezzanines y dinámicos. Cobertura nacional.',
+	title = 'FMP Racks | Diseño, fabricación e instalación de racks industriales',
+	description = 'FMP Racks diseña, fabrica e instala racks industriales y sistemas de almacenamiento a la medida: selectivo, Drive-In, cantilever, mezzanines y dinámicos. Cobertura nacional.',
 	ogImage = '/images/og-famaper.jpg',
 	noindex = false,
 } = Astro.props;
@@ -22,7 +22,6 @@ const navLinks = [
 	{ label: 'Productos', href: '/#productos' },
 	{ label: 'Servicios', href: '/#servicios' },
 	{ label: 'Metodología', href: '/#metodologia' },
-	{ label: 'Calidad', href: '/#calidad' },
 ];
 
 const oficinas = [
@@ -58,7 +57,7 @@ const year = new Date().getFullYear();
 		<!-- Open Graph / Twitter -->
 		<meta property="og:type" content="website" />
 		<meta property="og:locale" content="es_MX" />
-		<meta property="og:site_name" content="Famaper" />
+		<meta property="og:site_name" content="FMP Racks" />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
@@ -91,7 +90,7 @@ const year = new Date().getFullYear();
 		<header class="fixed top-0 left-0 w-full z-50 h-20 backdrop-blur-md bg-white/80 border-b border-black/5">
 			<div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between gap-6">
 				<!-- Logotipo -->
-				<a href="/" class="flex items-center gap-3 group shrink-0" aria-label="Famaper — Inicio">
+				<a href="/" class="flex items-center gap-3 group shrink-0" aria-label="FMP Racks — Inicio">
 					<img
 						src="/images/logo-famaper.png"
 						alt="FMP Racks"
@@ -269,7 +268,7 @@ const year = new Date().getFullYear();
 			<!-- Bottom bar -->
 			<div class="border-t border-black/10">
 				<div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-brand-muted">
-					<p>&copy; {year} Famaper. Todos los derechos reservados.</p>
+					<p>&copy; {year} FMP Racks. Todos los derechos reservados.</p>
 					<nav class="flex items-center gap-6" aria-label="Enlaces legales">
 						<a href="/politicas-de-privacidad" class="hover:text-black transition-colors">Políticas de Privacidad</a>
 						<a href="/terminos-y-condiciones" class="hover:text-black transition-colors">Términos y Condiciones</a>

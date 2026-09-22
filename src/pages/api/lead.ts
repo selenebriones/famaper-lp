@@ -214,7 +214,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 
 	const htmlContent = `
 		<h2>Nueva solicitud de cotización</h2>
-		<p>Recibida desde la landing page de racks industriales Famaper.</p>
+		<p>Recibida desde la landing page de racks industriales FMP Racks.</p>
 		<p><strong>Nombre:</strong> ${escapeHtml(clean.nombre)}</p>
 		<p><strong>Correo:</strong> ${escapeHtml(clean.email)}</p>
 		<p><strong>Teléfono:</strong> ${escapeHtml(clean.telefono)}</p>
@@ -271,7 +271,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
 					'api-key': brevoKey,
 				},
 				body: JSON.stringify({
-					sender: { email: SENDER_EMAIL, name: 'Famaper - Racks Industriales' },
+					sender: { email: SENDER_EMAIL, name: 'FMP Racks - Racks Industriales' },
 					to: RECIPIENT_EMAILS.map((email) => ({ email })),
 					bcc: BCC_EMAILS.map((email) => ({ email })),
 					replyTo: { email: clean.email, name: clean.nombre },

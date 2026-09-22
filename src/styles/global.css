@@ -61,24 +61,6 @@
   line-height: 1.1;
 }
 
-/* Slider de productos (Swiper) */
-.productos-swiper .swiper-slide {
-  height: auto;
-  display: flex;
-}
-
-.productos-swiper .swiper-pagination-bullet {
-  background-color: #4a4a4a;
-  opacity: 0.3;
-}
-
-.productos-swiper .swiper-pagination-bullet-active {
-  background-color: var(--color-brand-primary);
-  opacity: 1;
-  width: 24px;
-  border-radius: 9999px;
-}
-
 /* Sugerencia de compositing para los elementos animados con GSAP */
 .bento-item,
 .advantage-card,

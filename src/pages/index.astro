@@ -33,6 +33,7 @@ const productos = [
 		icon: 'ph-rows',
 		title: 'Menorack',
 		image: '/images/img-menorack-01.png',
+		resumen: 'Picking manual y carga ligera.',
 		description:
 			'Rack industrial ligero diseñado para la manipulación manual de mercancía con capacidad de hasta 1800 kg. Cuenta con entrepaño de madera o panel metálico, perfecto para operaciones de picking.',
 	},
@@ -40,6 +41,7 @@ const productos = [
 		icon: 'ph-stack',
 		title: 'Selectivo',
 		image: '/images/img-selectivo-02.png',
+		resumen: 'Acceso directo a cada tarima.',
 		description:
 			'El sistema más versátil para la venta de racks. Ideal para el almacenamiento de productos en tarimas con acceso directo a cada estiba, adaptándose a cualquier tipo de carga, volumen y peso.',
 	},
@@ -47,6 +49,7 @@ const productos = [
 		icon: 'ph-arrows-in-line-horizontal',
 		title: 'Drive-In',
 		image: '/images/img-drivein-06.png',
+		resumen: 'Máxima densidad, mismo producto por carril.',
 		description:
 			'Maximiza la utilización del volumen disponible. Este sistema de racks de almacenamiento es perfecto para guardar productos homogéneos de alta densidad y gran cantidad de tarimas por referencia.',
 	},
@@ -54,6 +57,7 @@ const productos = [
 		icon: 'ph-arrow-line-left',
 		title: 'Push-Back',
 		image: '/images/img-pushback-02.png',
+		resumen: 'Densidad de almacenaje por gravedad.',
 		description:
 			'Almacenaje por acumulación que permite gestionar de 2 a 6 tarimas en profundidad por nivel. Excelente solución de racks para almacenamiento industrial en cámaras de refrigeración y congelación.',
 	},
@@ -61,6 +65,7 @@ const productos = [
 		icon: 'ph-align-left',
 		title: 'Cantilever',
 		image: '/images/img-cantilever-03.png',
+		resumen: 'Cargas largas y de geometría irregular.',
 		description:
 			'Diseñado para barras, tubos o perfiles de gran longitud (+3 metros). Estructura robusta para la estibación segura de cargas largas y volumétricas.',
 	},
@@ -68,6 +73,7 @@ const productos = [
 		icon: 'ph-steps',
 		title: 'Entrepiso',
 		image: '/images/img-entrepiso-06.jpeg',
+		resumen: 'Alta resistencia para almacenamiento manual.',
 		description:
 			'Niveles de pisos multiplicados y sostenidos por la misma estructura de racks y anaqueles, aprovechando la altura total del almacén para carga manual.',
 	},
@@ -75,6 +81,7 @@ const productos = [
 		icon: 'ph-buildings',
 		title: 'Mezzanine',
 		image: '/images/img-mezzanine-03.png',
+		resumen: 'Niveles adicionales para aprovechar la altura.',
 		description:
 			'Duplica o triplica la superficie útil de tu nave. Ideal para almacenamiento de cargas de bajo peso, áreas de trabajo u oficinas operativas.',
 	},
@@ -82,6 +89,7 @@ const productos = [
 		icon: 'ph-arrows-clockwise',
 		title: 'Dinámico',
 		image: '/images/img-dinamico-01.png',
+		resumen: 'Flujo por gravedad para alta rotación FIFO.',
 		description:
 			'Diseñado para alta densidad de rotación (FIFO). Utiliza rodillos o ruedas con controladores de velocidad para desplazar hasta 40 tarimas de fondo con total seguridad.',
 	},
@@ -89,6 +97,7 @@ const productos = [
 		icon: 'ph-package',
 		title: 'Carton Flow',
 		image: '/images/img-cartonflow-02.png',
+		resumen: 'Flujo FIFO para picking ágil.',
 		description:
 			'Aumenta la velocidad del surtido bajo el principio de "Primeras Entradas, Primeras Salidas". La solución clave para alta densidad de cajas y productos ligeros.',
 	},
@@ -96,6 +105,7 @@ const productos = [
 		icon: 'ph-building-office',
 		title: 'Autoportante',
 		image: '/images/img-autoportante-01.png',
+		resumen: 'La estructura del rack sostiene tu nave industrial.',
 		description:
 			'Gran obra de ingeniería donde los propios racks industriales forman parte de la estructura resistente del edificio o nave industrial.',
 	},
@@ -263,60 +273,32 @@ const productosSelect = productos.map((p) => p.title);
 				</p>
 			</div>
 
-			<!-- Slider: catálogo completo, 3 por vista -->
-			<div class="anim-card relative">
-				<div class="swiper productos-swiper !pb-14">
-					<div class="swiper-wrapper">
-						{productos.map((producto) => (
-							<div class="swiper-slide h-auto">
-								<article class="group h-full rounded-2xl overflow-hidden flex flex-col bg-brand-secondary text-black border border-transparent transition-all hover:border-brand-primary hover:shadow-xl">
-									<div class="relative overflow-hidden aspect-4/3 bg-brand-dark">
-										<img
-											src={producto.image}
-											alt={`Rack ${producto.title} fabricado e instalado por Famaper`}
-											class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-											loading="lazy"
-											decoding="async"
-										/>
-										<span class="absolute bottom-4 left-4 w-11 h-11 rounded-xl bg-brand-primary flex items-center justify-center text-black text-xl shadow-lg">
-											<i class={`ph-bold ${producto.icon}`}></i>
-										</span>
-									</div>
-
-									<div class="p-7 flex flex-col grow">
-										<h3 class="text-xl font-bold text-black mb-3">{producto.title}</h3>
-										<p class="text-sm text-brand-muted leading-relaxed grow">{producto.description}</p>
-										<a
-											href="#contacto"
-											class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-black hover:text-brand-muted transition-colors"
-										>
-											Cotizar este sistema
-											<i class="ph-bold ph-arrow-right transition-transform group-hover:translate-x-1"></i>
-										</a>
-									</div>
-								</article>
-							</div>
-						))}
-					</div>
-
-					<div class="swiper-pagination productos-pagination"></div>
-				</div>
-
-				<!-- Controles laterales -->
-				<button
-					type="button"
-					class="productos-prev absolute z-10 top-28 -translate-y-1/2 sm:top-1/2 sm:-translate-y-[calc(50%+1.75rem)] left-1 sm:left-2 xl:-left-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-gray-300 shadow-lg flex items-center justify-center text-black text-lg sm:text-xl hover:bg-brand-primary hover:border-brand-primary transition-all"
-					aria-label="Productos anteriores"
-				>
-					<i class="ph-bold ph-arrow-left"></i>
-				</button>
-				<button
-					type="button"
-					class="productos-next absolute z-10 top-28 -translate-y-1/2 sm:top-1/2 sm:-translate-y-[calc(50%+1.75rem)] right-1 sm:right-2 xl:-right-6 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/90 backdrop-blur-sm border border-gray-300 shadow-lg flex items-center justify-center text-black text-lg sm:text-xl hover:bg-brand-primary hover:border-brand-primary transition-all"
-					aria-label="Productos siguientes"
-				>
-					<i class="ph-bold ph-arrow-right"></i>
-				</button>
+			<!-- Grid: catálogo completo, los 10 sistemas a la vista -->
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				{productos.map((producto) => (
+					<a
+						href="#contacto"
+						class="anim-card group relative block aspect-4/3 rounded-2xl overflow-hidden bg-brand-dark shadow-lg"
+					>
+						<img
+							src={producto.image}
+							alt={`Rack ${producto.title} fabricado e instalado por Famaper`}
+							class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+							loading="lazy"
+							decoding="async"
+						/>
+						<div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent transition-colors duration-300 group-hover:via-black/60"></div>
+						<div class="absolute inset-x-0 bottom-0 p-5">
+							<h3 class="text-lg font-extrabold text-white">{producto.title}</h3>
+							<p class="text-xs text-gray-200 leading-snug mt-1 transition-opacity duration-200 group-hover:hidden">
+								{producto.resumen}
+							</p>
+							<p class="hidden text-xs text-gray-200 leading-relaxed mt-1 group-hover:block">
+								{producto.description}
+							</p>
+						</div>
+					</a>
+				))}
 			</div>
 		</div>
 	</section>
@@ -722,36 +704,6 @@ const productosSelect = productos.map((p) => p.title);
 		 H. GSAP
 	============================================================ -->
 	<script is:inline>
-		// Slider de productos: 3 tarjetas por vista en desktop
-		document.addEventListener('DOMContentLoaded', () => {
-			if (typeof Swiper === 'undefined') return;
-
-			new Swiper('.productos-swiper', {
-				slidesPerView: 1,
-				spaceBetween: 24,
-				grabCursor: true,
-				loop: true,
-				autoHeight: false,
-				autoplay: {
-					delay: 3500,
-					disableOnInteraction: false,
-					pauseOnMouseEnter: true,
-				},
-				navigation: {
-					prevEl: '.productos-prev',
-					nextEl: '.productos-next',
-				},
-				pagination: {
-					el: '.productos-pagination',
-					clickable: true,
-				},
-				breakpoints: {
-					640: { slidesPerView: 2, spaceBetween: 24 },
-					1024: { slidesPerView: 3, spaceBetween: 24 },
-				},
-			});
-		});
-
 		document.addEventListener('DOMContentLoaded', () => {
 			if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 				gsap.registerPlugin(ScrollTrigger);

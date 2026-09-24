@@ -1,6 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+// La landing se sirve bajo /racks-industriales; toda ruta absoluta cuelga de aquí.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const servicios = [
 	{
 		icon: 'ph-chats-circle',
@@ -32,159 +35,159 @@ const productos = [
 	{
 		icon: 'ph-rows',
 		title: 'Menorack',
-		image: '/images/img-menorack-01.png',
+		image: `${base}/images/img-menorack-01.webp`,
 		resumen: 'Picking manual y carga ligera.',
 		description:
 			'Rack industrial ligero diseñado para la manipulación manual de mercancía con capacidad de hasta 1800 kg. Cuenta con entrepaño de madera o panel metálico, perfecto para operaciones de picking.',
 		gallery: [
-			'/images/gallery/menorack/01.webp',
-			'/images/gallery/menorack/02.webp',
-			'/images/gallery/menorack/03.webp',
-			'/images/gallery/menorack/04.webp',
-			'/images/gallery/menorack/05.webp',
+			`${base}/images/gallery/menorack/01.webp`,
+			`${base}/images/gallery/menorack/02.webp`,
+			`${base}/images/gallery/menorack/03.webp`,
+			`${base}/images/gallery/menorack/04.webp`,
+			`${base}/images/gallery/menorack/05.webp`,
 		],
 	},
 	{
 		icon: 'ph-stack',
 		title: 'Selectivo',
-		image: '/images/img-selectivo-02.png',
+		image: `${base}/images/img-selectivo-02.webp`,
 		resumen: 'Acceso directo a cada tarima.',
 		description:
 			'El sistema más versátil para la venta de racks. Ideal para el almacenamiento de productos en tarimas con acceso directo a cada estiba, adaptándose a cualquier tipo de carga, volumen y peso.',
 		gallery: [
-			'/images/gallery/selectivo/01.webp',
-			'/images/gallery/selectivo/02.webp',
-			'/images/gallery/selectivo/03.webp',
-			'/images/gallery/selectivo/04.webp',
-			'/images/gallery/selectivo/05.webp',
-			'/images/gallery/selectivo/06.webp',
+			`${base}/images/gallery/selectivo/01.webp`,
+			`${base}/images/gallery/selectivo/02.webp`,
+			`${base}/images/gallery/selectivo/03.webp`,
+			`${base}/images/gallery/selectivo/04.webp`,
+			`${base}/images/gallery/selectivo/05.webp`,
+			`${base}/images/gallery/selectivo/06.webp`,
 		],
 	},
 	{
 		icon: 'ph-arrows-in-line-horizontal',
 		title: 'Drive-In',
-		image: '/images/img-drivein-06.png',
+		image: `${base}/images/img-drivein-06.webp`,
 		resumen: 'Máxima densidad, mismo producto por carril.',
 		description:
 			'Maximiza la utilización del volumen disponible. Este sistema de racks de almacenamiento es perfecto para guardar productos homogéneos de alta densidad y gran cantidad de tarimas por referencia.',
 		gallery: [
-			'/images/gallery/drivein/01.webp',
-			'/images/gallery/drivein/02.webp',
-			'/images/gallery/drivein/03.webp',
-			'/images/gallery/drivein/04.webp',
-			'/images/gallery/drivein/05.webp',
-			'/images/gallery/drivein/06.webp',
-			'/images/gallery/drivein/07.webp',
+			`${base}/images/gallery/drivein/01.webp`,
+			`${base}/images/gallery/drivein/02.webp`,
+			`${base}/images/gallery/drivein/03.webp`,
+			`${base}/images/gallery/drivein/04.webp`,
+			`${base}/images/gallery/drivein/05.webp`,
+			`${base}/images/gallery/drivein/06.webp`,
+			`${base}/images/gallery/drivein/07.webp`,
 		],
 	},
 	{
 		icon: 'ph-arrow-line-left',
 		title: 'Push-Back',
-		image: '/images/img-pushback-02.png',
+		image: `${base}/images/img-pushback-02.webp`,
 		resumen: 'Densidad de almacenaje por gravedad.',
 		description:
 			'Almacenaje por acumulación que permite gestionar de 2 a 6 tarimas en profundidad por nivel. Excelente solución de racks para almacenamiento industrial en cámaras de refrigeración y congelación.',
 		gallery: [
-			'/images/gallery/pushback/01.webp',
-			'/images/gallery/pushback/02.webp',
-			'/images/gallery/pushback/03.webp',
-			'/images/gallery/pushback/04.webp',
+			`${base}/images/gallery/pushback/01.webp`,
+			`${base}/images/gallery/pushback/02.webp`,
+			`${base}/images/gallery/pushback/03.webp`,
+			`${base}/images/gallery/pushback/04.webp`,
 		],
 	},
 	{
 		icon: 'ph-align-left',
 		title: 'Cantilever',
-		image: '/images/img-cantilever-03.png',
+		image: `${base}/images/img-cantilever-03.webp`,
 		resumen: 'Cargas largas y de geometría irregular.',
 		description:
 			'Diseñado para barras, tubos o perfiles de gran longitud (+3 metros). Estructura robusta para la estibación segura de cargas largas y volumétricas.',
 		gallery: [
-			'/images/gallery/cantilever/01.webp',
-			'/images/gallery/cantilever/02.webp',
-			'/images/gallery/cantilever/03.webp',
-			'/images/gallery/cantilever/04.webp',
-			'/images/gallery/cantilever/05.webp',
-			'/images/gallery/cantilever/06.webp',
+			`${base}/images/gallery/cantilever/01.webp`,
+			`${base}/images/gallery/cantilever/02.webp`,
+			`${base}/images/gallery/cantilever/03.webp`,
+			`${base}/images/gallery/cantilever/04.webp`,
+			`${base}/images/gallery/cantilever/05.webp`,
+			`${base}/images/gallery/cantilever/06.webp`,
 		],
 	},
 	{
 		icon: 'ph-steps',
 		title: 'Entrepiso',
-		image: '/images/img-entrepiso-06.jpeg',
+		image: `${base}/images/img-entrepiso-06.webp`,
 		resumen: 'Alta resistencia para almacenamiento manual.',
 		description:
 			'Niveles de pisos multiplicados y sostenidos por la misma estructura de racks y anaqueles, aprovechando la altura total del almacén para carga manual.',
 		gallery: [
-			'/images/gallery/entrepiso/01.webp',
-			'/images/gallery/entrepiso/02.webp',
-			'/images/gallery/entrepiso/03.webp',
-			'/images/gallery/entrepiso/04.webp',
-			'/images/gallery/entrepiso/05.webp',
-			'/images/gallery/entrepiso/06.webp',
+			`${base}/images/gallery/entrepiso/01.webp`,
+			`${base}/images/gallery/entrepiso/02.webp`,
+			`${base}/images/gallery/entrepiso/03.webp`,
+			`${base}/images/gallery/entrepiso/04.webp`,
+			`${base}/images/gallery/entrepiso/05.webp`,
+			`${base}/images/gallery/entrepiso/06.webp`,
 		],
 	},
 	{
 		icon: 'ph-buildings',
 		title: 'Mezzanine',
-		image: '/images/img-mezzanine-03.png',
+		image: `${base}/images/img-mezzanine-03.webp`,
 		resumen: 'Niveles adicionales para aprovechar la altura.',
 		description:
 			'Duplica o triplica la superficie útil de tu nave. Ideal para almacenamiento de cargas de bajo peso, áreas de trabajo u oficinas operativas.',
 		gallery: [
-			'/images/gallery/mezzanine/01.webp',
-			'/images/gallery/mezzanine/02.webp',
-			'/images/gallery/mezzanine/03.webp',
-			'/images/gallery/mezzanine/04.webp',
+			`${base}/images/gallery/mezzanine/01.webp`,
+			`${base}/images/gallery/mezzanine/02.webp`,
+			`${base}/images/gallery/mezzanine/03.webp`,
+			`${base}/images/gallery/mezzanine/04.webp`,
 		],
 	},
 	{
 		icon: 'ph-arrows-clockwise',
 		title: 'Dinámico',
-		image: '/images/img-dinamico-01.png',
+		image: `${base}/images/img-dinamico-01.webp`,
 		resumen: 'Flujo por gravedad para alta rotación FIFO.',
 		description:
 			'Diseñado para alta densidad de rotación (FIFO). Utiliza rodillos o ruedas con controladores de velocidad para desplazar hasta 40 tarimas de fondo con total seguridad.',
 		gallery: [
-			'/images/gallery/dinamico/01.webp',
-			'/images/gallery/dinamico/02.webp',
-			'/images/gallery/dinamico/03.webp',
-			'/images/gallery/dinamico/04.webp',
+			`${base}/images/gallery/dinamico/01.webp`,
+			`${base}/images/gallery/dinamico/02.webp`,
+			`${base}/images/gallery/dinamico/03.webp`,
+			`${base}/images/gallery/dinamico/04.webp`,
 		],
 	},
 	{
 		icon: 'ph-package',
 		title: 'Carton Flow',
-		image: '/images/img-cartonflow-02.png',
+		image: `${base}/images/img-cartonflow-02.webp`,
 		resumen: 'Flujo FIFO para picking ágil.',
 		description:
 			'Aumenta la velocidad del surtido bajo el principio de "Primeras Entradas, Primeras Salidas". La solución clave para alta densidad de cajas y productos ligeros.',
 		gallery: [
-			'/images/gallery/cartonflow/01.webp',
-			'/images/gallery/cartonflow/02.webp',
-			'/images/gallery/cartonflow/03.webp',
+			`${base}/images/gallery/cartonflow/01.webp`,
+			`${base}/images/gallery/cartonflow/02.webp`,
+			`${base}/images/gallery/cartonflow/03.webp`,
 		],
 	},
 	{
 		icon: 'ph-building-office',
 		title: 'Autosoportado',
-		image: '/images/img-autoportante-01.png',
+		image: `${base}/images/img-autoportante-01.webp`,
 		resumen: 'La estructura del rack sostiene tu nave industrial.',
 		description:
 			'Gran obra de ingeniería donde los propios racks industriales forman parte de la estructura resistente del edificio o nave industrial.',
 		gallery: [
-			'/images/gallery/autoportante/01.webp',
-			'/images/gallery/autoportante/02.webp',
-			'/images/gallery/autoportante/03.webp',
-			'/images/gallery/autoportante/04.webp',
-			'/images/gallery/autoportante/05.webp',
+			`${base}/images/gallery/autoportante/01.webp`,
+			`${base}/images/gallery/autoportante/02.webp`,
+			`${base}/images/gallery/autoportante/03.webp`,
+			`${base}/images/gallery/autoportante/04.webp`,
+			`${base}/images/gallery/autoportante/05.webp`,
 		],
 	},
 ];
 
 const certificaciones = [
-	{ image: '/images/iso9001.webp', alt: 'Certificación ISO 9001' },
-	{ image: '/images/logo_hecho_en_mexico.webp', alt: 'Hecho en México' },
-	{ image: '/images/ANETIF.webp', alt: 'ANETIF' },
+	{ image: `${base}/images/iso9001.webp`, alt: 'Certificación ISO 9001' },
+	{ image: `${base}/images/logo_hecho_en_mexico.webp`, alt: 'Hecho en México' },
+	{ image: `${base}/images/ANETIF.webp`, alt: 'ANETIF' },
 ];
 
 const metodologia = [
@@ -270,13 +273,13 @@ const productosSelect = productos.map((p) => p.title);
 			<video
 				id="hero-video"
 				class="absolute inset-0 w-full h-full object-cover"
-				src="/videos/video_famaper_720p.mp4"
-				poster="/images/famaper-web-productos-selectivos-banner.webp"
+				src={`${base}/videos/video_famaper_720p.mp4`}
+				poster={`${base}/images/famaper-web-productos-selectivos-banner.webp`}
 				autoplay
 				muted
 				loop
 				playsinline
-				preload="auto"
+				preload="metadata"
 				disablepictureinpicture
 				tabindex="-1"
 			></video>
@@ -402,7 +405,7 @@ const productosSelect = productos.map((p) => p.title);
 				</div>
 
 				<div class="relative aspect-4/3 sm:aspect-video rounded-xl overflow-hidden bg-black">
-					<img id="galeria-imagen" src="" alt="" class="w-full h-full object-contain" />
+					<img id="galeria-imagen" alt="" class="w-full h-full object-contain" />
 
 					<button
 						type="button"
@@ -549,7 +552,7 @@ const productosSelect = productos.map((p) => p.title);
 	<section class="relative bg-brand-secondary py-20 md:py-24 overflow-hidden">
 		<!-- Imagen de fondo con degradado de gris a imagen (izquierda → derecha) -->
 		<img
-			src="/images/20anios.webp"
+			src={`${base}/images/20anios.webp`}
 			alt=""
 			aria-hidden="true"
 			class="absolute inset-0 w-full h-full object-cover"
@@ -623,7 +626,7 @@ const productosSelect = productos.map((p) => p.title);
 	<section id="ubicaciones" class="relative py-20 md:py-28 bg-brand-dark overflow-hidden">
 		<!-- Imagen de fondo a la vista, sin capa oscura -->
 		<img
-			src="/images/famaper-web-productos-selectivos-banner.webp"
+			src={`${base}/images/famaper-web-productos-selectivos-banner.webp`}
 			alt=""
 			aria-hidden="true"
 			class="absolute inset-0 w-full h-full object-cover"
@@ -727,7 +730,7 @@ const productosSelect = productos.map((p) => p.title);
 
 				<div class="flex items-center gap-3 mb-8">
 					<img
-						src="/images/logo-famaper.png"
+						src={`${base}/images/logo-famaper.png`}
 						alt="FMP Racks"
 						class="h-10 w-auto object-contain"
 						onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -912,7 +915,7 @@ const productosSelect = productos.map((p) => p.title);
 	<!-- ============================================================
 		 H. GSAP
 	============================================================ -->
-	<script is:inline>
+	<script is:inline define:vars={{ BASE: base }}>
 		document.addEventListener('DOMContentLoaded', () => {
 			if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
 				gsap.registerPlugin(ScrollTrigger);
@@ -1124,7 +1127,7 @@ const productosSelect = productos.map((p) => p.title);
 				const demasiadoRapido = inicio && Date.now() - inicio < 3000;
 
 				if ((trampa && trampa.value.trim() !== '') || demasiadoRapido) {
-					window.location.href = '/gracias';
+					window.location.href = `${BASE}/gracias`;
 					return;
 				}
 
@@ -1159,6 +1162,8 @@ const productosSelect = productos.map((p) => p.title);
 				};
 
 				try {
+					// Sin prefijo de base a propósito: el endpoint no es parte de la
+					// landing estática, lo resuelve el Laravel de fmpracks.com.
 					const respuesta = await fetch('/api/lead', {
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
@@ -1167,7 +1172,7 @@ const productosSelect = productos.map((p) => p.title);
 
 					if (respuesta.ok) {
 						sessionStorage.removeItem(UTM_STORE);
-						window.location.href = '/gracias';
+						window.location.href = `${BASE}/gracias`;
 						return;
 					}
 

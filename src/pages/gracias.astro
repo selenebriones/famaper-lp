@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 
 <Layout
@@ -50,7 +52,7 @@ import Layout from '../layouts/Layout.astro';
 			</div>
 
 			<div class="flex items-center justify-center text-sm">
-				<a href="/" class="inline-flex items-center gap-2 font-bold text-black hover:text-brand-muted transition-colors">
+				<a href={`${base}/`} class="inline-flex items-center gap-2 font-bold text-black hover:text-brand-muted transition-colors">
 					<i class="ph-bold ph-arrow-left"></i>
 					Volver al inicio
 				</a>

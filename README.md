@@ -10,7 +10,7 @@ Sitio estático de una sola página, enfocado en la captación de leads B2B (dir
 
 | Tecnología | Versión | Uso |
 |---|---|---|
-| [Astro](https://astro.build) | ^7.0 | Framework, generación estática |
+| [Astro](https://astro.build) | ^7.0 | Framework, generación estática (`output: 'static'`, `base: '/racks-industriales'`) |
 | [Tailwind CSS](https://tailwindcss.com) | ^4.3 | Estilos, vía `@tailwindcss/vite` y directiva `@theme` |
 | [GSAP + ScrollTrigger](https://gsap.com) | 3.12.5 | Animaciones de revelado al hacer scroll (CDN) |
 | [Swiper](https://swiperjs.com) | 11 | Carrusel de productos (CDN) |
@@ -48,10 +48,13 @@ famaper-lp/
 │   ├── layouts/
 │   │   └── Layout.astro   # <head> + SEO, CDNs, header fijo, footer, init de GSAP
 │   ├── pages/
-│   │   └── index.astro    # Landing completa: contenido, markup y scripts
+│   │   ├── index.astro    # Landing completa: contenido, markup y scripts
+│   │   └── gracias.astro  # Confirmación tras enviar el formulario
 │   └── styles/
 │       └── global.css     # Tokens @theme de Tailwind v4 y utilidades
 ├── astro.config.mjs
+├── deploy.sh              # Compila y copia el build al repo Famaper
+├── DEPLOY.md              # Cómo se publica en fmpracks.com/racks-industriales
 └── package.json
 ```
 
@@ -77,6 +80,21 @@ Se usan como clases normales de Tailwind: `bg-brand-primary`, `text-brand-muted`
 
 ---
 
+## Indexación
+
+La landing va con **`noindex, follow`** en las dos páginas: es un destino de
+campañas, no de orgánico. Si se indexara, competiría por "racks industriales"
+con la home de fmpracks.com, que apunta a ese mismo término. Por eso `noindex`
+es el valor por omisión de `Layout.astro`, no la excepción, y la landing no
+entra al `SitemapController` del sitio principal.
+
+`follow` y no `nofollow`: los enlaces al sitio principal deben seguir contando.
+Tampoco se bloquea en `robots.txt` — si se bloqueara, Google no podría leer el
+`noindex`.
+
+Para revertirlo: `noindex = false` en `Layout.astro` y agregar la ruta al
+`SitemapController` del repo `Famaper`.
+
 ## Secciones de la landing
 
 1. **Hero** — Video MP4 propio de fondo (`public/videos/video_famaper_480p.mp4`, silenciado y en loop) con capa oscura.
@@ -91,24 +109,29 @@ Se usan como clases normales de Tailwind: `bg-brand-primary`, `text-brand-muted`
 
 ## Formulario de leads
 
-El formulario valida en cliente y en servidor, captura los parámetros de campaña y envía el lead a dos destinos independientes.
+El formulario valida en cliente y en servidor, captura los parámetros de campaña y
+manda el lead a la API de leads de Futurité, que lo registra en el CRM y dispara el
+correo a ventas.
 
-**Flujo:** el navegador hace `POST /api/lead` → el endpoint valida y reenvía a n8n y a Brevo en paralelo → si al menos uno acepta, redirige a `/gracias`.
+**Flujo:** el navegador hace `POST /api/lead` → **Laravel** (en el repo `Famaper`,
+`app/Http/Controllers/LeadLpController.php`) valida y reenvía a Futurité y, si está
+configurado, a n8n → si al menos uno acepta, redirige a `/racks-industriales/gracias`.
 
-**Variables de entorno** (ver `.env.example`; en local van en `.env`, que está en `.gitignore`):
+> El endpoint **no** corre en este proyecto. El servidor de fmpracks.com no tiene
+> Node, así que la landing se publica estática y el formulario lo atiende el Laravel
+> del sitio principal. Ver [DEPLOY.md](DEPLOY.md).
 
-| Variable | Uso |
-|---|---|
-| `N8N_WEBHOOK_URL` | Webhook que recibe el lead en JSON |
-| `BREVO_API_KEY` | Llave de API de Brevo (`xkeysib-...`, **no** una llave SMTP `xsmtpsib-...`) para el correo a ventas@famaper.com |
+**Anti-spam:** honeypot (`sitio_web`), trampa de tiempo (envíos en menos de 3 s se
+descartan) y límite de 5 envíos por IP cada 10 minutos. Todo se revalida en el
+servidor: las defensas del cliente son comodidad, no seguridad.
 
-**Anti-spam:** honeypot (`sitio_web`), trampa de tiempo (envíos en menos de 3 s se descartan) y límite de 5 envíos por IP cada 10 minutos. Todo se revalida en el servidor: las defensas del cliente son comodidad, no seguridad.
+**UTMs:** `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`,
+`gclid`, `fbclid` y `msclkid` se leen de la URL en la primera visita y se guardan en
+`sessionStorage`, así sobreviven si la persona navega antes de llenar el formulario.
+Viajan en el payload y aparecen en el correo. Una campaña nueva pisa a la anterior.
 
-**UTMs:** `utm_source`, `utm_medium`, `utm_campaign`, `utm_term`, `utm_content`, `gclid`, `fbclid` y `msclkid` se leen de la URL en la primera visita y se guardan en `sessionStorage`, así sobreviven si la persona navega antes de llenar el formulario. Viajan en el payload y aparecen en el correo. Una campaña nueva pisa a la anterior.
-
-> El endpoint corre en el servidor (`prerender = false`) mediante el adaptador de Vercel. El resto de las páginas sigue siendo estático.
-
----
+**Campos sin columna propia en el CRM** (`ciudad`, `producto`, `landing`) viajan como
+extras: la API los guarda tal cual y la plantilla del correo los imprime sola.
 
 ## Animaciones
 
@@ -126,16 +149,21 @@ En `prefers-reduced-motion` se desactiva el video de fondo del hero y el scroll 
 
 ## Pendientes antes de producción
 
-- [ ] **`public/images/og-famaper.jpg`** — Imagen para Open Graph y Twitter Card (recomendado 1200×630). Referenciada en `Layout.astro`.
-- [ ] **Activar el workflow de n8n.** El webhook responde 404 (`workflow must be active`). Mientras siga inactivo, los leads llegan solo por correo vía Brevo.
-- [ ] **Cargar las variables de entorno en Vercel** (`N8N_WEBHOOK_URL` y `BREVO_API_KEY`). Sin ellas, el endpoint no entrega el lead en producción.
-- [ ] **Páginas legales.** El footer enlaza a `/politicas-de-privacidad` y `/terminos-y-condiciones`, que aún no existen.
-- [ ] **Dominio real** en `Astro.site` (`astro.config.mjs`) para que la URL canónica y las etiquetas OG apunten correctamente.
-- [ ] **Optimizar imágenes de producto.** Los PNG suman ~4.6 MB. Convertirlos a WebP reduciría el peso ~80% sin pérdida visible.
-- [ ] Verificar si `public/images/foto_20anios.webp` sigue en uso; hoy no se referencia en el código.
-- [ ] **Peso del video del hero.** El MP4 pesa 3.8 MB y se descarga con `preload="auto"`. Si afecta el tiempo de carga en móvil, valorar una versión más corta o `preload="metadata"`.
+- [ ] **Páginas legales.** El footer enlaza a `/racks-industriales/politicas-de-privacidad`
+      y `/racks-industriales/terminos-y-condiciones`, que no existen. El texto del aviso
+      de privacidad lo tiene que dar el cliente: en México la LFPDPPP lo exige para
+      cualquier formulario que recoja datos personales, y hoy no hay uno en todo el sitio.
+- [ ] **Chatbot de Conversia sobre el formulario.** El panel se abre solo, es
+      `position: fixed` con `z-index: 9999` y a 1024 px de ancho queda encima del
+      formulario de cotización. Hay que retrasar la apertura automática o moverlo.
+- [ ] **Activar el workflow de n8n** y poner `N8N_LEAD_WEBHOOK_URL` en el `.env` del
+      servidor. Mientras siga inactivo, el lead viaja solo por la API de Futurité.
+- [ ] **Imagen Open Graph definitiva.** `public/images/og-famaper.jpg` es un provisional
+      armado con un cuadro del video y el logotipo; si diseño quiere una propia, se
+      reemplaza el archivo y ya.
 
----
+Cerrados: el video del hero pasó de 16 MB a 4.4 MB, los PNG de producto son WebP
+(4.9 MB → 1.6 MB) y el build completo bajó de 29 MB a 14 MB.
 
 ## Notas de mantenimiento
 

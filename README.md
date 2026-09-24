@@ -80,6 +80,21 @@ Se usan como clases normales de Tailwind: `bg-brand-primary`, `text-brand-muted`
 
 ---
 
+## Indexación
+
+La landing va con **`noindex, follow`** en las dos páginas: es un destino de
+campañas, no de orgánico. Si se indexara, competiría por "racks industriales"
+con la home de fmpracks.com, que apunta a ese mismo término. Por eso `noindex`
+es el valor por omisión de `Layout.astro`, no la excepción, y la landing no
+entra al `SitemapController` del sitio principal.
+
+`follow` y no `nofollow`: los enlaces al sitio principal deben seguir contando.
+Tampoco se bloquea en `robots.txt` — si se bloqueara, Google no podría leer el
+`noindex`.
+
+Para revertirlo: `noindex = false` en `Layout.astro` y agregar la ruta al
+`SitemapController` del repo `Famaper`.
+
 ## Secciones de la landing
 
 1. **Hero** — Video MP4 propio de fondo (`public/videos/video_famaper_480p.mp4`, silenciado y en loop) con capa oscura.

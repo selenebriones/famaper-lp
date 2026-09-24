@@ -1,12 +1,15 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
-import vercel from '@astrojs/vercel';
 
-// https://astro.build/config
+// La landing se publica como sitio estático dentro de fmpracks.com, bajo el
+// prefijo /racks-industriales. No hay Node en ese servidor (Plesk + Apache),
+// así que el formulario pega a /api/lead, que resuelve el Laravel del sitio
+// principal. Ver docs/DEPLOY.md.
 export default defineConfig({
-  // Las páginas siguen siendo estáticas; solo /api/lead corre en el servidor
-  // (marcado con `export const prerender = false`).
-  adapter: vercel(),
+  site: 'https://fmpracks.com',
+  base: '/racks-industriales',
+  output: 'static',
+  trailingSlash: 'ignore',
 
   vite: {
     plugins: [tailwindcss()],

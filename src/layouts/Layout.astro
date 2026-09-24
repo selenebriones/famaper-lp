@@ -15,14 +15,19 @@ const {
 	noindex = false,
 } = Astro.props;
 
-const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://www.famaper.com').href;
+// La landing vive bajo /racks-industriales, así que toda ruta absoluta se
+// construye a partir de la base. Sin esto, los assets apuntarían a la raíz del
+// sitio principal y darían 404.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://fmpracks.com').href;
 
 // El orden sigue el de las secciones en la página.
 const navLinks = [
-	{ label: 'Productos', href: '/#productos' },
-	{ label: 'Servicios', href: '/#servicios' },
-	{ label: 'Metodología', href: '/#metodologia' },
-	{ label: 'Ubicaciones', href: '/#ubicaciones' },
+	{ label: 'Productos', href: `${base}/#productos` },
+	{ label: 'Servicios', href: `${base}/#servicios` },
+	{ label: 'Metodología', href: `${base}/#metodologia` },
+	{ label: 'Ubicaciones', href: `${base}/#ubicaciones` },
 ];
 
 const oficinas = [
@@ -50,10 +55,10 @@ const year = new Date().getFullYear();
 		<meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
 		<meta name="theme-color" content="#ECCF52" />
 		<link rel="canonical" href={canonical} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
-		<link rel="shortcut icon" href="/favicon.ico" />
-		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+		<link rel="icon" type="image/png" sizes="96x96" href={`${base}/favicon-96x96.png`} />
+		<link rel="shortcut icon" href={`${base}/favicon.ico`} />
+		<link rel="apple-touch-icon" sizes="180x180" href={`${base}/apple-touch-icon.png`} />
 
 		<!-- Open Graph / Twitter -->
 		<meta property="og:type" content="website" />
@@ -62,11 +67,11 @@ const year = new Date().getFullYear();
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:url" content={canonical} />
-		<meta property="og:image" content={ogImage} />
+		<meta property="og:image" content={new URL(base + ogImage, Astro.site).href} />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={ogImage} />
+		<meta name="twitter:image" content={new URL(base + ogImage, Astro.site).href} />
 
 		<!-- GOOGLE FONTS -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -91,9 +96,9 @@ const year = new Date().getFullYear();
 		<header class="fixed top-0 left-0 w-full z-50 h-20 backdrop-blur-md bg-white/80 border-b border-black/5">
 			<div class="max-w-7xl mx-auto h-full px-6 flex items-center justify-between gap-6">
 				<!-- Logotipo -->
-				<a href="/" class="flex items-center gap-3 group shrink-0" aria-label="FMP Racks — Inicio">
+				<a href={`${base}/`} class="flex items-center gap-3 group shrink-0" aria-label="FMP Racks — Inicio">
 					<img
-						src="/images/logo-famaper.png"
+						src={`${base}/images/logo-famaper.png`}
 						alt="FMP Racks"
 						class="h-9 md:h-10 w-auto object-contain group-hover:scale-105 transition-transform"
 						onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -117,7 +122,7 @@ const year = new Date().getFullYear();
 				<!-- CTA -->
 				<div class="flex items-center gap-2 sm:gap-3 shrink-0">
 					<a
-						href="/#contacto"
+						href={`${base}/#contacto`}
 						class="bg-brand-primary text-black font-bold text-[11px] sm:text-xs md:text-sm px-3.5 sm:px-5 md:px-7 py-3 rounded-lg shadow-md hover:brightness-105 hover:shadow-lg transition-all whitespace-nowrap"
 					>
 						<span class="sm:hidden">Cotizar</span>
@@ -168,7 +173,7 @@ const year = new Date().getFullYear();
 				<div class="lg:col-span-2 flex flex-col gap-5">
 					<div class="flex items-center gap-3">
 						<img
-							src="/images/logo-famaper.png"
+							src={`${base}/images/logo-famaper.png`}
 							alt="FMP Racks"
 							class="h-10 w-auto object-contain"
 							onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
@@ -266,8 +271,8 @@ const year = new Date().getFullYear();
 				<div class="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-brand-muted">
 					<p>&copy; {year} FMP Racks. Todos los derechos reservados.</p>
 					<nav class="flex items-center gap-6" aria-label="Enlaces legales">
-						<a href="/politicas-de-privacidad" class="hover:text-black transition-colors">Políticas de Privacidad</a>
-						<a href="/terminos-y-condiciones" class="hover:text-black transition-colors">Términos y Condiciones</a>
+						<a href={`${base}/politicas-de-privacidad`} class="hover:text-black transition-colors">Políticas de Privacidad</a>
+						<a href={`${base}/terminos-y-condiciones`} class="hover:text-black transition-colors">Términos y Condiciones</a>
 					</nav>
 				</div>
 			</div>

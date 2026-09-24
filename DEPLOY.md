@@ -28,6 +28,10 @@ Esa línea va **antes** del rewrite a `public/`. Si se quita, Laravel responde 4
 
 ## Publicar un cambio
 
+Los cambios se hacen **siempre en este repo**, en `src/`. La carpeta
+`Famaper/racks-industriales/` es salida compilada: `deploy.sh` la borra y la
+reescribe completa en cada corrida, así que lo que se edite ahí se pierde.
+
 ```bash
 ./deploy.sh
 ```
@@ -44,6 +48,25 @@ Y en Plesk, **Git → Pull**.
 
 > El build se versiona a propósito dentro de `Famaper`: Plesk solo sincroniza ese
 > repo, y así publicar la landing es el mismo `pull` de siempre.
+
+### Los dos candados de `deploy.sh`
+
+- **Aborta si hay cambios sin commitear.** Lo que se publica tiene que
+  corresponder a un commit que exista; si no, nadie puede reproducir después lo
+  que quedó en línea.
+- **Avisa si el commit no está en GitHub.** No aborta —a veces urge— pero deja
+  claro el riesgo.
+
+### Saber qué versión está publicada
+
+`deploy.sh` sella el build con el commit de origen:
+
+```bash
+curl -s https://fmpracks.com/racks-industriales/version.json
+```
+
+Ese `commit` es de **este** repo, no del de `Famaper`. Sirve para responder
+"¿ya subió mi cambio?" sin entrar al servidor.
 
 ## El prefijo `/racks-industriales`
 

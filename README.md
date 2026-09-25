@@ -149,10 +149,8 @@ En `prefers-reduced-motion` se desactiva el video de fondo del hero y el scroll 
 
 ## Pendientes antes de producción
 
-- [ ] **Páginas legales.** El footer enlaza a `/racks-industriales/politicas-de-privacidad`
-      y `/racks-industriales/terminos-y-condiciones`, que no existen. El texto del aviso
-      de privacidad lo tiene que dar el cliente: en México la LFPDPPP lo exige para
-      cualquier formulario que recoja datos personales, y hoy no hay uno en todo el sitio.
+- [x] **Páginas legales.** El footer enlaza al aviso de privacidad del sitio principal
+      (`https://fmpracks.com/aviso-privacidad`). Se quitó Términos y Condiciones.
 - [ ] **Chatbot de Conversia sobre el formulario.** El panel se abre solo, es
       `position: fixed` con `z-index: 9999` y a 1024 px de ancho queda encima del
       formulario de cotización. Hay que retrasar la apertura automática o moverlo.

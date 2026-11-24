@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import AvisoMonterrey from '../components/AvisoMonterrey.astro';
 
 interface Props {
 	title?: string;
@@ -106,6 +107,9 @@ const year = new Date().getFullYear();
 		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NJD7HRJ"
 		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		<!-- End Google Tag Manager (noscript) -->
+
+		<AvisoMonterrey />
+
 		<!-- ============================================================
 			 HEADER FIJO — GLASSMORPHISM
 		============================================================ -->

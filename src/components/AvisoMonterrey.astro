@@ -1,0 +1,67 @@
+---
+// Aviso temporal: los números de la oficina de Monterrey no están
+// funcionando. Pedido del cliente el 2026-11-24. Quitar este componente (y su
+// import en Layout.astro) en cuanto la línea de Monterrey vuelva a operar.
+---
+<div
+	id="aviso-monterrey"
+	class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 px-4"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby="aviso-monterrey-titulo"
+>
+	<div class="relative w-full max-w-md rounded-2xl bg-brand-surface p-7 shadow-2xl">
+		<button
+			type="button"
+			id="aviso-monterrey-cerrar"
+			class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-brand-muted hover:bg-black/5 hover:text-black transition-colors"
+			aria-label="Cerrar aviso"
+		>
+			<i class="ph-bold ph-x text-lg"></i>
+		</button>
+
+		<span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-primary text-black text-2xl mb-4">
+			<i class="ph-bold ph-phone-x"></i>
+		</span>
+
+		<h2 id="aviso-monterrey-titulo" class="text-lg font-bold text-black pr-6">
+			Aviso: línea de Monterrey
+		</h2>
+		<p class="mt-2 text-sm leading-relaxed text-brand-muted">
+			Los números de nuestra oficina de Monterrey no están funcionando por el momento. Para ser atendido, comunícate al:
+		</p>
+
+		<a
+			href="tel:+523347575181"
+			class="mt-5 flex items-center justify-center gap-2 rounded-lg bg-brand-primary px-5 py-3 font-bold text-black hover:brightness-105 transition-all"
+		>
+			<i class="ph-bold ph-phone-call text-lg"></i>
+			33 4757 5181
+		</a>
+	</div>
+</div>
+
+<script>
+	const CLAVE = 'aviso-monterrey-cerrado';
+	const modal = document.getElementById('aviso-monterrey');
+	const cerrar = document.getElementById('aviso-monterrey-cerrar');
+
+	function ocultar() {
+		modal?.classList.add('hidden');
+		modal?.classList.remove('flex');
+		sessionStorage.setItem(CLAVE, '1');
+	}
+
+	if (modal && !sessionStorage.getItem(CLAVE)) {
+		modal.classList.remove('hidden');
+		modal.classList.add('flex');
+	}
+
+	cerrar?.addEventListener('click', ocultar);
+	modal?.addEventListener('click', (evento) => {
+		if (evento.target === modal) ocultar();
+	});
+	document.addEventListener('keydown', (evento) => {
+		if (evento.key === 'Escape') ocultar();
+	});
+</script>

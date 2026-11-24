@@ -5,35 +5,39 @@
 ---
 <div
 	id="aviso-monterrey"
-	class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/60 px-4"
-	role="dialog"
-	aria-modal="true"
-	aria-labelledby="aviso-monterrey-titulo"
+	class="fixed z-[100] top-24 inset-x-4 sm:inset-x-auto sm:top-24 sm:right-6 sm:w-[380px] opacity-0 -translate-y-3 pointer-events-none transition-all duration-500 ease-out"
+	role="status"
+	aria-live="polite"
 >
-	<div class="relative w-full max-w-md rounded-2xl bg-brand-surface p-7 shadow-2xl">
+	<div class="relative overflow-hidden rounded-2xl bg-brand-surface shadow-2xl shadow-black/20 p-5">
+		<div class="absolute inset-x-0 top-0 h-1 bg-brand-primary"></div>
+
 		<button
 			type="button"
 			id="aviso-monterrey-cerrar"
-			class="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full text-brand-muted hover:bg-black/5 hover:text-black transition-colors"
+			class="absolute top-3 right-3 flex h-7 w-7 items-center justify-center rounded-full text-brand-muted hover:bg-black/5 hover:text-black transition-colors"
 			aria-label="Cerrar aviso"
 		>
-			<i class="ph-bold ph-x text-lg"></i>
+			<i class="ph-bold ph-x text-base"></i>
 		</button>
 
-		<span class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-brand-primary text-black text-2xl mb-4">
-			<i class="ph-bold ph-phone-x"></i>
-		</span>
-
-		<h2 id="aviso-monterrey-titulo" class="text-lg font-bold text-black pr-6">
-			Aviso: línea de Monterrey
-		</h2>
-		<p class="mt-2 text-sm leading-relaxed text-brand-muted">
-			Los números de nuestra oficina de Monterrey no están funcionando por el momento. Para ser atendido, comunícate al:
-		</p>
+		<div class="flex items-start gap-3 pr-6">
+			<span class="relative mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-primary/20 text-black">
+				<span class="aviso-monterrey-pulso absolute inset-0 rounded-full bg-brand-primary/40"></span>
+				<i class="ph-bold ph-phone-call relative text-lg"></i>
+			</span>
+			<div class="min-w-0">
+				<p class="text-[11px] font-bold uppercase tracking-wider text-black/60">Oficina Monterrey</p>
+				<h2 class="mt-0.5 text-base font-bold text-black">Seguimos atendiéndote</h2>
+				<p class="mt-1.5 text-sm leading-relaxed text-brand-muted">
+					Por ahora no logramos contestar en los números de Monterrey. Mientras los restablecemos, llámanos directo a Planta y con gusto te atendemos:
+				</p>
+			</div>
+		</div>
 
 		<a
 			href="tel:+523347575181"
-			class="mt-5 flex items-center justify-center gap-2 rounded-lg bg-brand-primary px-5 py-3 font-bold text-black hover:brightness-105 transition-all"
+			class="mt-4 flex items-center justify-center gap-2 rounded-xl bg-brand-primary px-4 py-3 font-bold text-black hover:brightness-105 transition-all"
 		>
 			<i class="ph-bold ph-phone-call text-lg"></i>
 			33 4757 5181
@@ -41,26 +45,40 @@
 	</div>
 </div>
 
+<style>
+	@keyframes aviso-monterrey-pulso {
+		0%, 100% { transform: scale(1); opacity: 0.6; }
+		50% { transform: scale(1.5); opacity: 0; }
+	}
+	.aviso-monterrey-pulso {
+		animation: aviso-monterrey-pulso 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.aviso-monterrey-pulso { animation: none; }
+	}
+</style>
+
 <script>
 	const CLAVE = 'aviso-monterrey-cerrado';
-	const modal = document.getElementById('aviso-monterrey');
+	const el = document.getElementById('aviso-monterrey');
 	const cerrar = document.getElementById('aviso-monterrey-cerrar');
 
+	function mostrar() {
+		el?.classList.remove('opacity-0', '-translate-y-3', 'pointer-events-none');
+	}
+
 	function ocultar() {
-		modal?.classList.add('hidden');
-		modal?.classList.remove('flex');
+		el?.classList.add('opacity-0', '-translate-y-3', 'pointer-events-none');
 		sessionStorage.setItem(CLAVE, '1');
 	}
 
-	if (modal && !sessionStorage.getItem(CLAVE)) {
-		modal.classList.remove('hidden');
-		modal.classList.add('flex');
+	// Pausa breve antes de aparecer: se siente a propósito, no como un corte de
+	// golpe en cuanto carga la página.
+	if (el && !sessionStorage.getItem(CLAVE)) {
+		setTimeout(mostrar, 900);
 	}
 
 	cerrar?.addEventListener('click', ocultar);
-	modal?.addEventListener('click', (evento) => {
-		if (evento.target === modal) ocultar();
-	});
 	document.addEventListener('keydown', (evento) => {
 		if (evento.key === 'Escape') ocultar();
 	});

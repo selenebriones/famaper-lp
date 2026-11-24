@@ -116,4 +116,17 @@
 	document.addEventListener('keydown', (evento) => {
 		if (evento.key === 'Escape') ocultar();
 	});
+
+	// Intercepta cualquier link al número roto de Monterrey (81 4842 8807),
+	// venga de donde venga en la página (footer, mapa, ficha de sede...), y
+	// muestra este mismo aviso en vez de intentar marcar. Solo ese número: no
+	// toca links a otras oficinas.
+	document.addEventListener('click', (evento) => {
+		const objetivo = evento.target;
+		if (!(objetivo instanceof Element)) return;
+		const link = objetivo.closest('a[href*="8148428807"]');
+		if (!link) return;
+		evento.preventDefault();
+		mostrar();
+	});
 </script>
